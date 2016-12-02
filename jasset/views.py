@@ -7,6 +7,8 @@ from jumpserver.models import Setting
 from jasset.forms import AssetForm, IdcForm
 from jasset.models import Asset, IDC, AssetGroup, ASSET_TYPE, ASSET_STATUS
 from jperm.perm_api import get_group_asset_perm, get_group_user_perm
+import json
+from django.forms.models import model_to_dict
 
 
 @require_role('admin')
@@ -575,3 +577,11 @@ def asset_upload(request):
         else:
             emg = u'批量添加失败,请检查格式.'
     return my_render('jasset/asset_add_batch.html', locals(), request)
+
+def asset_info(request):
+    asset = Asset.objects.all()
+    asset_list = []
+    for a in asset:
+        asset_dict = model_to_dict(a)
+        asset_list.append(asset_dict)
+    return HttpResponse(json.dumps(asset_list))

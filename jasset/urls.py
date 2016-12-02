@@ -21,4 +21,5 @@ urlpatterns = patterns('',
     url(r'^idc/list/$', idc_list, name='idc_list'),
     url(r'^idc/edit/$', idc_edit, name='idc_edit'),
     url(r'^idc/del/$', idc_del, name='idc_del'),
+    url(r'^asset/info/$', asset_info, name='asset_info'),
 )
