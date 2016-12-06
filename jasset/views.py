@@ -580,11 +580,12 @@ def asset_upload(request):
 
 def asset_info(request):
     key = request.GET.get('key','')
-    if not key == '0b28251e684dfbd9102f8b6f0281c0c5':
+    if key == '0b28251e684dfbd9102f8b6f0281c0c5':
+        asset = Asset.objects.all()
+        asset_list = []
+        for a in asset:
+            asset_dict = model_to_dict(a)
+            asset_list.append(asset_dict)
+        return HttpResponse(json.dumps(asset_list))
+    else:
         HttpResponse('error')
-    asset = Asset.objects.all()
-    asset_list = []
-    for a in asset:
-        asset_dict = model_to_dict(a)
-        asset_list.append(asset_dict)
-    return HttpResponse(json.dumps(asset_list))
