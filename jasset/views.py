@@ -588,4 +588,4 @@ def asset_info(request):
             asset_list.append(asset_dict)
         return HttpResponse(json.dumps(asset_list))
     else:
-        HttpResponse('error')
+        return HttpResponse('error')
