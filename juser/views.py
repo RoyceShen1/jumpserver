@@ -571,7 +571,7 @@ def request_process(request):
         a.save()
         user = a.applicant
         title = '申请已处理'
-        msg = '你好,你的申请已经处理完成。\
+        msg = '你好,你的申请已经处理完成。\n\
         申请内容如下:%s'%(a.description)
         mail_notify(title,msg,user)
 
