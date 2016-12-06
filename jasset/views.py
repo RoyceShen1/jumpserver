@@ -579,6 +579,9 @@ def asset_upload(request):
     return my_render('jasset/asset_add_batch.html', locals(), request)
 
 def asset_info(request):
+    key = request.GET.get('key','')
+    if not key == '0b28251e684dfbd9102f8b6f0281c0c5':
+        HttpResponse('error')
     asset = Asset.objects.all()
     asset_list = []
     for a in asset:
