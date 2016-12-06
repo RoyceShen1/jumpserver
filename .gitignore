@@ -39,8 +39,8 @@ nosetests.xml
 .pydevproject
 .settings
 *.log
-!logs/*
-!keys/*
-!jumpserver.conf
+logs/*
+keys/*
+jumpserver.conf
 nohup.out
 tmp/*
