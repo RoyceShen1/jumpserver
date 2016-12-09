@@ -345,6 +345,9 @@ def asset_list(request):
             file_name = s[1]
         smg = u'excel文件已生成，请点击下载!'
         return my_render('jasset/asset_excel_download.html', locals(), request)
+    # 去重
+    asset_find.distinct()
+
     assets_list, p, assets, page_range, current_page, show_first, show_end = pages(asset_find, request)
     if user_perm != 0:
         return my_render('jasset/asset_list.html', locals(), request)
