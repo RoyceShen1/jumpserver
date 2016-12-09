@@ -349,6 +349,14 @@ def asset_list(request):
     asset_find = asset_find.distinct()
     asset_find = sorted(asset_find, key=lambda ip: long(''.join(["%02X" % long(i) for i in ip.ip.split('.')]), 16))
 
+    # ip排序
+    if 'ip' in request.GET:
+        ip = request.GET.get('ip')
+        if ip == '0':
+            asset_find.reverse()
+    else:
+        ip = '1'
+
     assets_list, p, assets, page_range, current_page, show_first, show_end = pages(asset_find, request)
     if user_perm != 0:
         return my_render('jasset/asset_list.html', locals(), request)

@@ -104,7 +104,12 @@
                                         <input id="checkall" type="checkbox" class="i-checks" name="checkall" value="checkall" data-editable='false' onclick="check_all('asset_form')">
                                     </th>
                                     <th class="text-center"> 主机名 </th>
-                                    <th class="text-center" name="ip"> IP地址 </th>
+                                    {% if ip == '1' %}
+                                    <th class="text-center" name="ip"> <a href="?ip=0">IP地址</a> </th>
+                                    {% endif %}
+                                    {% if ip == '0' %}
+                                    <th class="text-center" name="ip"> <a href="?ip=1">IP地址</a> </th>
+                                    {% endif %}
                                     <th class="text-center"> IDC </th>
                                     <th class="text-center"> 所属主机组 </th>
 {#                                    <th class="text-center"> 配置信息 </th>#}
@@ -139,6 +144,11 @@
                             {% endfor %}
                             </tbody>
                         </table>
+                        <div class="row">
+                            <div class="col-sm-6" style="padding-right: 0">
+                                Showing {{ assets.start_index }} to {{ assets.end_index }} of {{ p.count }} entries
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-sm-6">
                                 <input type="button" id="asset_del" class="btn btn-danger btn-sm"  name="del_button" value="删除"/>
