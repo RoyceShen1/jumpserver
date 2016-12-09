@@ -80,7 +80,7 @@ class Asset(models.Model):
     system_version = models.CharField(max_length=8, blank=True, null=True, verbose_name=u"系统版本号")
     system_arch = models.CharField(max_length=16, blank=True, null=True, verbose_name=u"系统平台")
     cabinet = models.CharField(max_length=32, blank=True, null=True, verbose_name=u'机柜号')
-    position = models.IntegerField(blank=True, null=True, verbose_name=u'机器位置')
+    position = models.IntegerField(blank=True, null=True, verbose_name=u'机架号')
     number = models.CharField(max_length=32, blank=True, null=True, verbose_name=u'资产编号')
     status = models.IntegerField(choices=ASSET_STATUS, blank=True, null=True, default=1, verbose_name=u"机器状态")
     asset_type = models.IntegerField(choices=ASSET_TYPE, blank=True, null=True, verbose_name=u"主机类型")
