@@ -379,6 +379,7 @@ def asset_edit_batch(request):
         password = request.POST.get('password', '')
         group = request.POST.getlist('group', [])
         cabinet = request.POST.get('cabinet', '')
+        position = request.POST.get('position', '')
         comment = request.POST.get('comment', '')
         asset_id_all = unicode(request.GET.get('asset_id_all', ''))
         asset_id_all = asset_id_all.split(',')
@@ -431,6 +432,11 @@ def asset_edit_batch(request):
                     if asset.cabinet != cabinet:
                         asset.cabinet = cabinet
                         alert_list.append([u'机柜号', asset.cabinet, cabinet])
+                # 新增机架号修改
+                if position:
+                    if asset.position != position:
+                        asset.position = position
+                        alert_list.append([u'机架号', asset.position, position])
                 if comment:
                     if asset.comment != comment:
                         asset.comment = comment
