@@ -609,11 +609,43 @@ def asset_upload_to_update(request):
             row = table.row_values(row_num)
             ip = row[1]
             a = Asset.objects.get(ip = ip)
-            a.number = row[15]
-            a.cabinet = row[16]
-            if row[17]:
-                a.position = row[17]
-            a.save()
+
+            remote_ip = row[9]
+            other_ip = row[10]
+            status = row[11]
+            if status == '已使用':
+                status = 1
+            elif status == '未使用':
+                status = 2
+            elif status == '报废':
+                status = 3
+            number = row[16]
+            cabinet = row[17]
+            if row[18]:
+                position = row[18]
+            asset_type = row[19]
+            if asset_type == '物理机':
+                asset_type = 1
+            elif asset_type == '虚拟机':
+                asset_type = 2
+            elif asset_type == '交换机':
+                asset_type = 3
+            elif asset_type == '路由器':
+                asset_type = 4
+            elif asset_type == '防火墙':
+                asset_type = 5
+            elif asset_type == 'Docker':
+                asset_type = 6
+            elif asset_type == '其他':
+                asset_type = 7
+            env = row[20]
+            if env == '生产环境':
+                env = 1
+            elif env == '测试环境':
+                env = 2
+            is_active = row[21]
+
+            # a.save()
 
     return my_render('jasset/asset_update_from_excel.html', locals(), request)
 
