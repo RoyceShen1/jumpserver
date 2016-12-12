@@ -610,7 +610,8 @@ def asset_upload_to_update(request):
             a = Asset.objects.get(ip = ip)
             a.number = row[15]
             a.cabinet = row[16]
-            a.position = row[17]
+            if row[17]:
+                a.position = row[17]
             a.save()
 
     return my_render('jasset/asset_update_from_excel.html', locals(), request)
