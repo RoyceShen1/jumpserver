@@ -43,7 +43,7 @@
                                 {% if smg %}
                                     <div class="alert alert-success text-center">{{ smg }}</div>
                                 {% endif %}
-                                <p>仅对资产编号、机柜号、机架号做批量更新，其余字段请手动操作,并且导入excel文件格式要与导出文件一致</p>
+                                <p>更新以下字段:远控ip、其他ip、机器状态、资产编号、机柜号、机架号、主机类型、运行环境、是否激活，其余字段请手动操作,并且导入excel文件格式要与导出文件一致</p>
                                 <form action="{% url 'asset_upload_to_update' %}" method="POST" enctype="multipart/form-data">
                                     <div class="file-box">
                                         <input id='textfield' />
