@@ -666,8 +666,7 @@ def asset_upload_to_update(request):
                 a.env = env
             if is_active:
                 a.is_active = is_active
-
-            # a.save()
+            a.save()
 
     return my_render('jasset/asset_update_from_excel.html', locals(), request)
 
