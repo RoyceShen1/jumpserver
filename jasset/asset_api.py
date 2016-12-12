@@ -214,7 +214,16 @@ def write_excel(asset_all):
 
         disk = get_disk_info(asset.disk)
         group_all = '/'.join(group_list)
+
         status = asset.get_status_display()
+        env = asset.get_env_display()
+        asset_type = asset.get_asset_type_display()
+        is_active = asset.is_active
+        if is_active:
+            is_active = '已激活'
+        else:
+            is_active = '未激活'
+
         idc_name = asset.idc.name if asset.idc else u''
         system_type = asset.system_type if asset.system_type else u''
         system_version = asset.system_version if asset.system_version else u''
@@ -223,7 +232,7 @@ def write_excel(asset_all):
         alter_dic = [asset.hostname, asset.ip, idc_name, group_all, system_os, asset.cpu, asset.memory,
                      disk, asset.mac, asset.remote_ip, asset.other_ip, status, asset.comment, asset.brand, 
                      asset.system_arch, asset.sn, asset.number , asset.cabinet, asset.position, 
-                     asset.asset_type, asset.env, asset.is_active]
+                     asset_type, env, asset.is_active]
         data.append(alter_dic)
     format = workbook.add_format()
     format.set_border(1)
