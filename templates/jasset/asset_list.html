@@ -93,6 +93,9 @@
                                     <button type="button" href="{% url 'asset_list' %}?export=true" name="export" class="btn btn-sm btn-success search-btn-excel" onclick="return false">
                                         - 导出 -
                                     </button>
+                                    <button type="button" onclick="javascript:location='{% url 'asset_update_from_excel' %}';" name="update_excel" class="btn btn-sm btn-info">
+                                        - 从excel更新 -
+                                    </button>
                                 </div>
                             </div>
                         </div>

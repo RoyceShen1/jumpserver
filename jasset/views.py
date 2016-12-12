@@ -596,6 +596,25 @@ def asset_upload(request):
             emg = u'批量添加失败,请检查格式.'
     return my_render('jasset/asset_add_batch.html', locals(), request)
 
+@require_role('admin')
+def asset_upload_to_update(request):
+    if request.method == 'POST':
+        import xlrd
+        excel_file = request.FILES.get('file_name', '')
+        data = xlrd.open_workbook(filename=None, file_contents=excel_file.read())
+        table = data.sheets()[0]
+        rows = table.nrows
+        for row_num in range(1, rows):
+            row = table.row_values(row_num)
+            ip = row[1]
+            a = Asset.objects.get(ip = ip)
+            a.number = row[15]
+            a.cabinet = row[16]
+            a.position = row[17]
+            a.save()
+
+    return my_render('jasset/asset_update_from_excel.html', locals(), request)
+
 def asset_info(request):
     key = request.GET.get('key','')
     if key == '0b28251e684dfbd9102f8b6f0281c0c5':
@@ -607,3 +626,8 @@ def asset_info(request):
         return HttpResponse(json.dumps(asset_list))
     else:
         return HttpResponse('error')
+
+@require_role('admin')
+def asset_update_from_excel(request):
+    header_title, path1, path2 = u'更新资产', u'资产管理', u'批量更新'
+    return my_render('jasset/asset_update_from_excel.html', locals(), request)
