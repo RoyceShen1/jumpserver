@@ -621,9 +621,7 @@ def asset_upload_to_update(request):
                 status = 3
             number = row[16]
             cabinet = row[17]
-            position = []
-            if row[18]:
-                position = row[18]
+            position = row[18]
             asset_type = row[19]
             if asset_type == '物理机':
                 asset_type = 1
