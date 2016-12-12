@@ -232,7 +232,7 @@ def write_excel(asset_all):
         alter_dic = [asset.hostname, asset.ip, idc_name, group_all, system_os, asset.cpu, asset.memory,
                      disk, asset.mac, asset.remote_ip, asset.other_ip, status, asset.comment, asset.brand, 
                      asset.system_arch, asset.sn, asset.number , asset.cabinet, asset.position, 
-                     asset_type, env, asset.is_active]
+                     asset_type, env, is_active]
         data.append(alter_dic)
     format = workbook.add_format()
     format.set_border(1)

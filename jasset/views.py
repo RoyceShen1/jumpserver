@@ -644,6 +644,29 @@ def asset_upload_to_update(request):
             elif env == '测试环境':
                 env = 2
             is_active = row[21]
+            if is_active == '已激活':
+                is_active = True
+            else:
+                is_active = False
+
+            if remote_ip:
+                a.remote_ip = remote_ip
+            if other_ip:
+                a.other_ip = other_ip
+            if status:
+                a.status = status
+            if number:
+                a.number = number
+            if cabinet:
+                a.cabinet = cabinet
+            if position:
+                a.position = position
+            if asset_type:
+                a.asset_type = asset_type
+            if env:
+                a.env = env
+            if is_active:
+                a.is_active = is_active
 
             # a.save()
 
