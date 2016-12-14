@@ -170,11 +170,12 @@ def user_add_mail(user, kwargs):
         您的跳板机Web平台密码： %s
         SSH私钥下载地址： %s/juser/key/down/?uuid=%s
         Web登入地址：http://gk.fangdd.net
-        说明： 请通过以上连接下载SSH私钥, 然后使用SSH私钥登陆跳板机(客户端第一次登入使用SSH私钥时需要输入私钥密码,如更换SSH客户端后需要重新输入私钥密码)！
+        说明： 请通过以上连接下载SSH私钥, 然后使用SSH私钥登陆跳板机.
         请妥善保管好该邮件内容的信息以及私钥文件,如有丢失,请贿赂IOPS成员吃饭以便新建....
 	============================================================================
 	Usage:
 	For UNIX-Like System
+	chmod 600 /path/to/ssh_privite_key_file.pem
 	ssh -i /path/to/ssh_privite_key_file.pem username@gk.fangdd.net
 
 	For Windows 
