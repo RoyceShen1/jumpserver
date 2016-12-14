@@ -379,17 +379,18 @@ def user_edit(request):
         extra = request.POST.getlist('extra', [])
         is_active = True if '0' in extra else False
         email_need = True if '1' in extra else False
-        user_role = {'SU': u'超级管理员', 'GA': u'部门管理员', 'CU': u'普通用户'}
+        user_role = {'SU': u'超级管理员', 'CU': u'普通用户'}
 
         if user_id:
             user = get_object(User, id=user_id)
         else:
             return HttpResponseRedirect(reverse('user_list'))
 
-        if not checkPassword(password):
-            error = '密码过于简单,至少8位,且包含大小写字母及数字和特殊字符四种中的三种,\
-            为方便记忆,请与OA密码保持一致,该密码非明文保存'
-            return my_render('juser/user_edit.html', locals(), request)
+        if len(password)>0:
+            if not checkPassword(password):
+                error = '密码过于简单,至少8位,且包含大小写字母及数字和特殊字符四种中的三种,\
+                为方便记忆,请与OA密码保持一致,该密码非明文保存'
+                return my_render('juser/user_edit.html', locals(), request)
 
         db_update_user(user_id=user_id,
                        password=password,
