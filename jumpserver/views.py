@@ -97,7 +97,8 @@ def user_required(func):
             return func(req,*args,**kwargs)
         # is_authenticated = req.session.get('is_authenticated','no')
         else:
-            return HttpResponseRedirect('http://passport.fangdd.com/passport/authorize.do?client_id=workorder&response_type=code&redirect_uri=%s:%s/'%(URL,PORT))
+            nginx_port = 80
+            return HttpResponseRedirect('http://passport.fangdd.com/passport/authorize.do?client_id=workorder&response_type=code&redirect_uri=%s:%s/'%(URL,nginx_port))
     return wrapper
 
 @user_required
