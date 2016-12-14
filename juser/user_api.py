@@ -133,7 +133,8 @@ def gen_ssh_key(username, password='',
     mkdir(key_dir, mode=777)
     if os.path.isfile(private_key_file):
         os.unlink(private_key_file)
-    ret = bash('echo -e  "y\n"|ssh-keygen -t rsa -f %s -b %s -P "%s"' % (private_key_file, length, password))
+#    ret = bash('echo -e  "y\n"|ssh-keygen -t rsa -f %s -b %s -P "%s"' % (private_key_file, length, password))
+    ret = bash('echo -e  "y\n"|ssh-keygen -t rsa -f %s -b %s -P ""' % (private_key_file, length))
 
     if authorized_keys:
         auth_key_dir = os.path.join(home, username, '.ssh')
@@ -163,15 +164,27 @@ def user_add_mail(user, kwargs):
     user_role = {'SU': u'超级管理员', 'GA': u'组管理员', 'CU': u'普通用户'}
     mail_title = u'恭喜你的跳板机用户 %s 添加成功 Jumpserver' % user.name
     mail_msg = u"""
-    Hi, %s
+	Hi, %s
         您的用户名： %s
         您的权限： %s
-        您的web登录密码： %s
-        您的ssh密钥文件密码： %s
-        密钥下载地址： %s/juser/key/down/?uuid=%s
-        说明： 请登陆跳板机后台下载密钥, 然后使用密钥登陆跳板机！
+        您的跳板机Web平台密码： %s
+        SSH私钥下载地址： %s/juser/key/down/?uuid=%s
+        Web登入地址：http://gk.fangdd.net
+        说明： 请通过以上连接下载SSH私钥, 然后使用SSH私钥登陆跳板机(客户端第一次登入使用SSH私钥时需要输入私钥密码,如更换SSH客户端后需要重新输入私钥密码)！
+        请妥善保管好该邮件内容的信息以及私钥文件,如有丢失,请贿赂IOPS成员吃饭以便新建....
+	============================================================================
+	Usage:
+	For UNIX-Like System
+	ssh -i /path/to/ssh_privite_key_file.pem username@gk.fangdd.net
+
+	For Windows 
+	点击以下连接下载
+	%s/gk_manual_for_windows.pdf
+	============================================================================
+	
     """ % (user.name, user.username, user_role.get(user.role, u'普通用户'),
-           kwargs.get('password'), kwargs.get('ssh_key_pwd'), URL, user.uuid)
+#           kwargs.get('password'), kwargs.get('ssh_key_pwd'), URL, user.uuid, URL)
+           kwargs.get('password'), URL, user.uuid, URL)
     send_mail(mail_title, mail_msg, MAIL_FROM, [user.email], fail_silently=False)
 
 
