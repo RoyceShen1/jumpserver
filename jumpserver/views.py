@@ -183,7 +183,6 @@ def is_latest():
     if current_version != lastest_version:
         pass
 
-@user_required
 def Register(request):
     if request.method == 'POST':
         username = request.POST.get('username', '')

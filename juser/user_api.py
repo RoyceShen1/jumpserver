@@ -172,20 +172,23 @@ def user_add_mail(user, kwargs):
         Web登入地址：http://gk.fangdd.net
         说明： 请通过以上连接下载SSH私钥, 然后使用SSH私钥登陆跳板机.
         请妥善保管好该邮件内容的信息以及私钥文件,如有丢失,请贿赂IOPS成员吃饭以便新建....
+	跳板机的任何使用问题,请咨询张雯豪.
 	============================================================================
 	Usage:
 	For UNIX-Like System
-	chmod 600 /path/to/ssh_privite_key_file.pem
-	ssh -i /path/to/ssh_privite_key_file.pem username@gk.fangdd.net
+	chmod 600 /path/to/your/ssh_privite_key_file.pem
+	ssh -i /path/to/your/ssh_privite_key_file.pem <username>@gk.fangdd.net
 
 	For Windows 
-	点击以下连接下载
-	%s/gk_manual_for_windows.pdf
+	客户端下载链接
+	%s/docs/SeureCRT.rar
+	客户端配置文档
+	%s/docs/SecureCRT4Windows.pdf
 	============================================================================
 	
     """ % (user.name, user.username, user_role.get(user.role, u'普通用户'),
 #           kwargs.get('password'), kwargs.get('ssh_key_pwd'), URL, user.uuid, URL)
-           kwargs.get('password'), URL, user.uuid, URL)
+           kwargs.get('password'), URL, user.uuid, URL, URL)
     send_mail(mail_title, mail_msg, MAIL_FROM, [user.email], fail_silently=False)
 
 
