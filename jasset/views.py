@@ -609,6 +609,10 @@ def asset_upload_to_update(request):
             row = table.row_values(row_num)
             ip = row[1]
             a = Asset.objects.get(ip = ip)
+            
+            idc_name = row[2]
+            if IDC.objects.filter(name = idc_name):
+                a.idc = IDC.objects.get(name = idc_name)
 
             remote_ip = row[9]
             other_ip = row[10]
