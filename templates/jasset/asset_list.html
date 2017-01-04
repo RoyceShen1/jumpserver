@@ -32,6 +32,12 @@
                             <label>
                                 <select name="idc" class="form-control m-b input-sm" onchange="change_info()">
                                     <option value="">机房</option>
+                                    {% ifequal idc_name 'none' %}
+                                        <option value="none" selected>无</option>
+                                    {% else %}
+                                        <option value="none">无</option>
+                                    {% endifequal %}
+
                                     {% for idc in idc_all %}
                                         {% ifequal idc.name idc_name %}
                                             <option value="{{idc.name}}" selected> {{ idc.name|slice:":20" }}</option>

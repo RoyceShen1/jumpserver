@@ -304,7 +304,10 @@ def asset_list(request):
             asset_group_all = list(asset_perm['asset_group'])
 
     if idc_name:
-        asset_find = asset_find.filter(idc__name__contains=idc_name)
+        if idc_name == 'none':
+            asset_find = asset_find.filter(idc=None)
+        else:
+            asset_find = asset_find.filter(idc__name__contains=idc_name)
 
     if group_name:
         asset_find = asset_find.filter(group__name__contains=group_name)
