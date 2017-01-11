@@ -51,6 +51,12 @@
                             <label>
                                 <select name="group" class="form-control m-b input-sm" onchange="change_info()">
                                     <option value="">主机组</option>
+                                    {% ifequal group_name 'none' %}
+                                        <option value="none" selected>无</option>
+                                    {% else %}
+                                        <option value="none">无</option>
+                                    {% endifequal %}
+
                                     {% for asset_group in asset_group_all %}
                                         {% ifequal asset_group.name group_name %}
                                             <option value="{{ asset_group.name }}" selected> {{ asset_group.name|slice:":20" }} </option>
