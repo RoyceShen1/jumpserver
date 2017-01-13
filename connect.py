@@ -436,6 +436,9 @@ class Nav(object):
         self.search_result = self.perm_assets
         self.perm_asset_groups = self.user_perm.get('asset_group', [])
 
+    def reload_user_perm(self):
+	self.user_perm = get_group_user_perm(self.user)
+
     def natural_sort_hostname(self, list):
         convert = lambda text: int(text) if text.isdigit() else text.lower()
         alphanum_key = lambda x: [ convert(c) for c in re.split('([0-9]+)', x.hostname) ]
@@ -774,6 +777,7 @@ def main():
             except KeyboardInterrupt:
                 sys.exit(0)
             if option in ['P', 'p', '\n', '']:
+		nav.reload_user_perm()
                 nav.search()
                 nav.print_search_result()
                 continue
