@@ -81,8 +81,8 @@ def get_group_user_perm(ob):
                     perm_asset[asset].get('role', set()).update(perm_asset_group[asset_group].get('role', set()))
                     perm_asset[asset].get('rule', set()).update(perm_asset_group[asset_group].get('rule', set()))
                 else:
-                    perm_asset[asset] = {'role': perm_asset_group[asset_group].get('role', set()),
-                                         'rule': perm_asset_group[asset_group].get('rule', set())}
+                    perm_asset[asset] = {'role': perm_asset_group[asset_group].get('role', set()).copy(),
+                                         'rule': perm_asset_group[asset_group].get('rule', set()).copy()}
     return perm
 
 
