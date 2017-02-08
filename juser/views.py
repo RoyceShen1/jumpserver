@@ -307,7 +307,8 @@ def forget_password(request):
             Hi %s, 请点击下面链接重设密码！
             %s/juser/password/reset/?uuid=%s&timestamp=%s&hash=%s
             """ % (user.name, URL, user.uuid, timestamp, hash_encode)
-            send_mail('忘记跳板机密码', msg, MAIL_FROM, [email], fail_silently=False)
+            task_mail.delay('忘记跳板机密码', msg, MAIL_FROM, [email])
+            # send_mail('忘记跳板机密码', msg, MAIL_FROM, [email], fail_silently=False)
             msg = u'请登陆邮箱，点击邮件重设密码'
             return http_success(request, msg)
         else:
@@ -414,7 +415,8 @@ def user_edit(request):
                 权限：：%s
 
             """ % (user.name, URL, user.username, password, user_role.get(role_post, u''))
-            send_mail('您的信息已修改', msg, MAIL_FROM, [email], fail_silently=False)
+            task_mail.delay('您的信息已修改', msg, MAIL_FROM, [email])
+            # send_mail('您的信息已修改', msg, MAIL_FROM, [email], fail_silently=False)
 
         return HttpResponseRedirect(reverse('user_list'))
     return my_render('juser/user_edit.html', locals(), request)
@@ -583,4 +585,5 @@ def request_process(request):
     return HttpResponse('hello')
 
 def mail_notify(title,msg,user):
-    send_mail(title, msg, MAIL_FROM, [user.email], fail_silently=False)
+    task_mail.delay(title, msg, MAIL_FROM, [user.email])
+    # send_mail(title, msg, MAIL_FROM, [user.email], fail_silently=False)

@@ -7,6 +7,8 @@ from juser.models import AdminGroup
 from jumpserver.api import *
 from jumpserver.settings import BASE_DIR, EMAIL_HOST_USER as MAIL_FROM
 
+from jumpserver.celerytasks import task_mail
+
 
 def group_add_user(group, user_id=None, username=None):
     """
@@ -189,7 +191,9 @@ def user_add_mail(user, kwargs):
     """ % (user.name, user.username, user_role.get(user.role, u'普通用户'),
 #           kwargs.get('password'), kwargs.get('ssh_key_pwd'), URL, user.uuid, URL)
            kwargs.get('password'), URL, user.uuid, URL, URL)
-    send_mail(mail_title, mail_msg, MAIL_FROM, [user.email], fail_silently=False)
+
+    task_mail.delay(mail_title, mail_msg, MAIL_FROM, [user.email])
+    # send_mail(mail_title, mail_msg, MAIL_FROM, [user.email], fail_silently=False)
 
 
 def server_del_user(username):
