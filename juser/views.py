@@ -17,6 +17,8 @@ from models import Application,User
 
 MAIL_FROM = EMAIL_HOST_USER
 
+from jumpserver.celerytasks import task_mail
+
 
 @require_role(role='super')
 def group_add(request):
@@ -283,7 +285,8 @@ def send_mail_retry(request):
     """ % (URL, user.username, URL)
 
     try:
-        send_mail(u'邮件重发', msg, MAIL_FROM, [user.email], fail_silently=False)
+        task_mail.delay(u'邮件重发', msg, MAIL_FROM, [user.email])
+        # send_mail(u'邮件重发', msg, MAIL_FROM, [user.email], fail_silently=False)
     except IndexError:
         return Http404
     return HttpResponse('发送成功')
