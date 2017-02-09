@@ -19,3 +19,10 @@ MAIL_FROM = EMAIL_HOST_USER
 @celery.task(name='task_mail')
 def task_mail(title,msg,mail_from,to):
 	send_mail(title, msg, mail_from, to, fail_silently=False)
+
+from jasset.asset_api import asset_ansible_update
+
+@celery.task(name='task_ansible_update')
+def task_ansible_update(asset_list, name):
+	asset_ansible_update(asset_list, name)
+

@@ -10,6 +10,7 @@ from jperm.perm_api import get_group_asset_perm, get_group_user_perm
 import json
 from django.forms.models import model_to_dict
 
+from jumpserver.celerytasks import task_ansible_update
 
 @require_role('admin')
 def group_add(request):
@@ -513,9 +514,10 @@ def asset_update_batch(request):
                 asset = get_object(Asset, id=asset_id)
                 if asset:
                     asset_list.append(asset)
-        asset_ansible_update(asset_list, name)
-        return HttpResponse(u'批量更新成功!')
-    return HttpResponse(u'批量更新成功!')
+        task_ansible_update.delay(asset_list, name)
+        # asset_ansible_update(asset_list, name)
+        return HttpResponse(u'正在更新中,请稍后查看!')
+    return HttpResponse(u'正在更新中,请稍后查看!')
 
 
 @require_role('admin')

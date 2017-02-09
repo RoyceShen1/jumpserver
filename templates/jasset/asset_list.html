@@ -408,24 +408,26 @@
         var asset_id_all = getIDall();
         if (asset_id_all == ''){
             if (confirm("更新全部资产信息?")) {
-                layer.msg('玩命更新中...', {time: 200000});
+                // layer.msg('玩命更新中...', {time: 200000});
                 $.ajax({
                     type: "post",
                     url: "{% url 'asset_update_batch' %}?arg=all",
-                    success: function () {
-                        parent.location.reload();
+                    success: function (ret) {
+                        // parent.location.reload();
+                        alert(ret)
                     }
                 });
             }
         }
         else {
-            layer.msg('玩命更新中...', {time: 200000});
+            // layer.msg('玩命更新中...', {time: 200000});
             $.ajax({
                 type: "post",
                 data: {asset_id_all: asset_id_all},
                 url: "{% url 'asset_update_batch' %}",
-                success: function () {
-                    parent.location.reload();
+                success: function (ret) {
+                    // parent.location.reload();
+                    alert(ret)
                 }
             });
         }
