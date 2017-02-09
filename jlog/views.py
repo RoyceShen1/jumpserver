@@ -8,6 +8,7 @@ from django.http import HttpResponseNotFound
 from jlog.log_api import renderJSON
 
 from jlog.models import Log, ExecLog, FileLog, TermLog
+from juser.models import User
 from jumpserver.settings import LOG_DIR
 import zipfile
 import json
@@ -70,6 +71,10 @@ def log_list(request, offset):
     contact_list, p, contacts, page_range, current_page, show_first, show_end = pages(posts, request)
 
     session_id = request.session.session_key
+
+    for c in contacts:
+        c.username = User.objects.get(username=c.user).name
+
     return render_to_response('jlog/log_%s.html' % offset, locals(), context_instance=RequestContext(request))
 
 
