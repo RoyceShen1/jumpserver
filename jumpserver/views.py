@@ -18,6 +18,7 @@ from django.contrib.auth.decorators import login_required
 from jlog.models import Log, FileLog
 from jperm.perm_api import get_group_user_perm, gen_resource
 from jasset.models import Asset, IDC
+from juser.models import User
 from jperm.ansible_api import MyRunner
 from juser.user_api import server_add_user,user_add_mail,db_add_user
 import zipfile
@@ -156,6 +157,10 @@ def index(request):
         week_hosts = week_data.count()
 
         user_top_five = week_data.values('user').annotate(times=Count('user')).order_by('-times')[:5]
+
+        for x in user_top_five:
+            x['user'] = User.objects.get(username = x['user']).name
+
         color = ['label-success', 'label-info', 'label-primary', 'label-default', 'label-warnning']
 
         # 最后10次权限申请
