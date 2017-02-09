@@ -146,6 +146,7 @@ def index(request):
             username = user_info.get('user')
             last = Log.objects.filter(user=username).latest('start_time')
             user_info['last'] = last
+            user_info['username'] = User.objects.get(username=username).name
 
         for host_info in host_top_ten:
             host = host_info.get('host')
