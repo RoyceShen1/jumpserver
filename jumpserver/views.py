@@ -150,7 +150,9 @@ def index(request):
         for host_info in host_top_ten:
             host = host_info.get('host')
             last = Log.objects.filter(host=host).latest('start_time')
+            last_user = User.objects.get(username=last.user).name
             host_info['last'] = last
+            host_info['last_user'] = last_user
 
         # 一周top5
         week_users = week_data.values('user').distinct().count()
