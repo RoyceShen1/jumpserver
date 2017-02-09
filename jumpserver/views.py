@@ -172,7 +172,11 @@ def index(request):
 
         # 最后10次登陆
         login_10 = Log.objects.order_by('-start_time')[:10]
+        for x in login_10:
+            x.username = User.objects.get(username=x.user).name
         login_more_10 = Log.objects.order_by('-start_time')[10:21]
+        for x in login_more_10:
+            x.username = User.objects.get(username=x.user).name
 
     return render_to_response('index.html', locals(), context_instance=RequestContext(request))
 

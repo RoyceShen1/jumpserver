@@ -219,7 +219,7 @@
                                             {% else %}
                                                 <small class="pull-right">{{ login.start_time|naturaltime }}</small>
                                             {% endifequal %}
-                                            <strong>{{ login.user }}</strong> 登录了{{ login.host }} <br>
+                                            <strong>{{ login.username }}</strong> 登录了{{ login.host }} <br>
                                             <small class="text-muted">{{ login.start_time }}</small>
 
                                         </div>
@@ -241,7 +241,7 @@
                                                     {% else %}
                                                         <small class="pull-right">{{ login.start_time|naturaltime }}</small>
                                                     {% endifequal %}
-                                                    <strong>{{ login.user }}</strong> 登录了{{ login.host }} <br>
+                                                    <strong>{{ login.username }}</strong> 登录了{{ login.host }} <br>
                                                     <small class="text-muted">{{ login.start_time }}</small>
 
                                                 </div>
