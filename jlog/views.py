@@ -29,20 +29,21 @@ def log_list(request, offset):
         keyword = request.GET.get('keyword', '')
         posts = Log.objects.filter(is_finished=False).order_by('-start_time')
         if keyword:
-            posts = posts.filter(Q(name__icontains=keyword) | Q(host__icontains=keyword) |
-                                 Q(login_type__icontains=keyword))
+            posts = posts.filter(Q(user__icontains=keyword) | Q(name__icontains=keyword) | 
+                                Q(host__icontains=keyword) | Q(login_type__icontains=keyword))
 
     elif offset == 'exec':
         posts = ExecLog.objects.all().order_by('-id')
         keyword = request.GET.get('keyword', '')
         if keyword:
-            posts = posts.filter(Q(user__icontains=keyword) | Q(host__icontains=keyword) | Q(cmd__icontains=keyword))
+            posts = posts.filter(Q(name__icontains=keyword) | Q(user__icontains=keyword) | 
+                                Q(host__icontains=keyword) | Q(cmd__icontains=keyword))
     elif offset == 'file':
         posts = FileLog.objects.all().order_by('-id')
         keyword = request.GET.get('keyword', '')
         if keyword:
-            posts = posts.filter(
-                Q(user__icontains=keyword) | Q(host__icontains=keyword) | Q(filename__icontains=keyword))
+            posts = posts.filter(Q(name__icontains=keyword) | Q(user__icontains=keyword) |
+                                Q(host__icontains=keyword) | Q(filename__icontains=keyword))
     else:
         posts = Log.objects.filter(is_finished=True).order_by('-start_time')
         username_all = set([log.name for log in Log.objects.all()])
