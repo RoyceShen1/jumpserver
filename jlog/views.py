@@ -72,8 +72,8 @@ def log_list(request, offset):
 
     session_id = request.session.session_key
 
-    for c in contacts:
-        c.username = User.objects.get(username=c.user).name
+    # for c in contacts:
+    #     c.username = User.objects.get(username=c.user).name
 
     return render_to_response('jlog/log_%s.html' % offset, locals(), context_instance=RequestContext(request))
 

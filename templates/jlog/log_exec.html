@@ -66,7 +66,7 @@
                             {% for post in contacts.object_list %}
                                 <tr class="gradeX">
                                     <td class="text-center"> {{ post.id }} </td>
-                                    <td class="text-center username"> {{ post.username }} </td>
+                                    <td class="text-center username"> {{ post.name }} </td>
                                     <td class="text-center ip"> {{ post.host | truncatechars:30 }} </td>
                                     <td class="text-center ip"> {{ post.cmd | truncatechars:30 }} </td>
                                     <td class="text-center remote_ip"> {{ post.remote_ip }} </td>
