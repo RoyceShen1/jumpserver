@@ -194,7 +194,7 @@ class Tty(object):
         else:
             pid = 0
 
-        log = Log(user=self.username, host=self.asset_name, remote_ip=self.remote_ip, login_type=self.login_type,
+        log = Log(user=self.username, name=self.user.name, host=self.asset_name, remote_ip=self.remote_ip, login_type=self.login_type,
                   log_path=log_file_path, start_time=date_today, pid=pid)
         log.save()
         if self.login_type == 'web':
