@@ -45,7 +45,7 @@ def log_list(request, offset):
                 Q(user__icontains=keyword) | Q(host__icontains=keyword) | Q(filename__icontains=keyword))
     else:
         posts = Log.objects.filter(is_finished=True).order_by('-start_time')
-        username_all = set([log.user for log in Log.objects.all()])
+        username_all = set([log.name for log in Log.objects.all()])
         ip_all = set([log.host for log in Log.objects.all()])
 
         if date_seven_day and date_now_str:
