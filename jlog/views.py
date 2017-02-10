@@ -54,7 +54,7 @@ def log_list(request, offset):
             posts = posts.filter(start_time__gte=datetime_start).filter(start_time__lte=datetime_end)
 
         if username_list:
-            posts = posts.filter(user__in=username_list)
+            posts = posts.filter(name__in=username_list)
 
         if host_list:
             posts = posts.filter(host__in=host_list)
