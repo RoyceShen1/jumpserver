@@ -29,7 +29,7 @@ def log_list(request, offset):
         keyword = request.GET.get('keyword', '')
         posts = Log.objects.filter(is_finished=False).order_by('-start_time')
         if keyword:
-            posts = posts.filter(Q(user__icontains=keyword) | Q(host__icontains=keyword) |
+            posts = posts.filter(Q(name__icontains=keyword) | Q(host__icontains=keyword) |
                                  Q(login_type__icontains=keyword))
 
     elif offset == 'exec':
