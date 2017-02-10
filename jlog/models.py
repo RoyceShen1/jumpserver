@@ -5,6 +5,7 @@ import time
 
 class Log(models.Model):
     user = models.CharField(max_length=20, null=True)
+    name = models.CharField(max_length=20, null=True)
     host = models.CharField(max_length=200, null=True)
     remote_ip = models.CharField(max_length=100)
     login_type = models.CharField(max_length=100)
