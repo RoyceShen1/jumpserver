@@ -47,6 +47,7 @@ class TtyLog(models.Model):
 
 class ExecLog(models.Model):
     user = models.CharField(max_length=100)
+    name = models.CharField(max_length=20, null=True)
     host = models.TextField()
     cmd = models.TextField()
     remote_ip = models.CharField(max_length=100)
@@ -56,6 +57,7 @@ class ExecLog(models.Model):
 
 class FileLog(models.Model):
     user = models.CharField(max_length=100)
+    name = models.CharField(max_length=20, null=True)
     host = models.TextField()
     filename = models.TextField()
     type = models.CharField(max_length=20)
