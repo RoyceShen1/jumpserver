@@ -628,7 +628,7 @@ class Nav(object):
                         color_print('命令不能为空...')
                         continue
                     runner.run('shell', command, pattern=pattern)
-                    ExecLog(host=asset_name_str, user=self.user.username, cmd=command, remote_ip=remote_ip,
+                    ExecLog(host=asset_name_str, user=self.user.username, name=self.user.name, cmd=command, remote_ip=remote_ip,
                             result=runner.results).save()
                     for k, v in runner.results.items():
                         if k == 'ok':
@@ -679,7 +679,7 @@ class Nav(object):
                     runner.run('copy', module_args='src=%s dest=%s directory_mode'
                                                      % (tmp_dir, '/tmp'), pattern=pattern)
                     ret = runner.results
-                    FileLog(user=self.user.username, host=asset_name_str, filename=filename_str,
+                    FileLog(user=self.user.username, name=self.user.name, host=asset_name_str, filename=filename_str,
                             remote_ip=remote_ip, type='upload', result=ret).save()
                     logger.debug('Upload file: %s' % ret)
                     if ret.get('failed'):
