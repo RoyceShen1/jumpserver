@@ -625,6 +625,7 @@ def asset_upload_to_update(request):
             remote_ip = row[9]
             other_ip = row[10]
             status = row[11]
+	    comment = row[12]
             if status == '已使用':
                 status = 1
             elif status == '未使用':
@@ -678,6 +679,8 @@ def asset_upload_to_update(request):
                 a.env = env
             if is_active:
                 a.is_active = is_active
+	    if comment:
+		a.comment = comment
             a.save()
 
     return my_render('jasset/asset_update_from_excel.html', locals(), request)
