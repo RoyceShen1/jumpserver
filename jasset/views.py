@@ -311,9 +311,9 @@ def asset_list(request):
             asset_find = asset_find.filter(idc__name__contains=idc_name)
 
     if group_name:
-	if group_name == 'none':
-	    asset_find = asset_find.filter(group=None)
-	else:
+        if group_name == 'none':
+            asset_find = asset_find.filter(group=None)
+	    else:
             asset_find = asset_find.filter(group__name__contains=group_name)
 
     if asset_type:
