@@ -367,6 +367,10 @@ def asset_list(request):
         ip = '1'
 
     assets_list, p, assets, page_range, current_page, show_first, show_end = pages(asset_find, request)
+    
+    contact_list = assets_list
+    contacts = assets    
+
     if user_perm != 0:
         return my_render('jasset/asset_list.html', locals(), request)
     else:
