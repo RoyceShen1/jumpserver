@@ -1,3 +1,5 @@
+#coding=utf-8
+
 from django.db import models
 from juser.models import User
 import time
@@ -76,3 +78,10 @@ class TermLog(models.Model):
     history = models.TextField(null=True)
     timestamp = models.IntegerField(default=int(time.time()))
     datetimestamp = models.DateTimeField(auto_now_add=True)
+
+class SystemLog(models.Model):
+    user = models.ForeignKey(User,verbose_name='系统操作者')
+    time_added = models.DateTimeField(auto_now_add=True,verbose_name='生成时间')
+    time_modified = models.DateTimeField(auto_now=True,verbose_name='最后修改时间')
+    log_type = models.CharField(max_length=20, null=True)
+    info = models.TextField('操作结果')

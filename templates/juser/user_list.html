@@ -96,10 +96,14 @@
     </div>
 </div>
 
+<div id="modal-alert" class="iziModal"></div>
+
 {% endblock %}
 {% block self_head_css_js %}
     {% load staticfiles %}
     <script src="{% static 'js/jquery.shiftcheckbox.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/iziModal.min.css' %}">
+    <script src="{% static 'js/iziModal.min.js' %}" type="text/javascript"></script>
 {% endblock %}
 {% block self_footer_js %}
 <script>
@@ -135,11 +139,31 @@
 
         });
 
+        $("#modal-alert").iziModal({
+            title: "Your message has been sent successfully",
+            iconClass: 'icon-check',
+            headerColor: '#5bbd72',
+            width: 600
+        });
+
+        // function info(data){
+        //     $("#modal-alert").iziModal({
+        //         title: data,
+        //         iconClass: 'icon-check',
+        //         headerColor: '#5bbd72',
+        //         width: 600
+        //     });
+        //     $('#modal-alert').iziModal('open');
+        // }
+
         $('.email').click(function(){
             $.get('{% url "mail_retry" %}?uuid=' + $(this).attr('value'),
                     {},
                     function(data){
-                        alert(data)
+                        // info()
+                        $('#modal-alert').iziModal('setTitle', 'Title');
+                        $('#modal-alert').iziModal('open');
+                        // alert(data)
                     }
             )
         });
@@ -158,5 +182,6 @@ function genSSH(username, url) {
         })
     }
 }
+
 </script>
 {% endblock %}

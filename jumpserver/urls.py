@@ -18,4 +18,6 @@ urlpatterns = patterns('jumpserver.views',
     url(r'^jasset/', include('jasset.urls')),
     url(r'^jlog/', include('jlog.urls')),
     url(r'^jperm/', include('jperm.urls')),
+    url(r'^system_record/', 'system_record', name='system_record'),
+    url(r'^system_record_api/', 'system_record_api', name='system_record_api'),
 )

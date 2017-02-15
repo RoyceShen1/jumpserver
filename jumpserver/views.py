@@ -23,6 +23,7 @@ from jperm.ansible_api import MyRunner
 from juser.user_api import server_add_user,user_add_mail,db_add_user
 import zipfile
 from settings import URL,PORT
+from jlog.models import SystemLog
 
 
 def getDaysByNum(num):
@@ -429,3 +430,20 @@ def web_terminal(request):
     return render_to_response('jlog/web_terminal.html', locals())
 
 
+@require_role('admin')
+def system_record(request):
+
+    header_title, path1 = u'操作记录', u'管理员操作'
+
+    logs = SystemLog.objects.all()
+
+    contact_list, p, contacts, page_range, current_page, show_first, show_end = pages(logs, request)
+
+    return my_render('system_record.html', locals(), request)
+
+def system_record_api(request):
+
+    system_log_id = request.GET.get('id')
+    system_log = SystemLog.objects.get(id = system_log_id)
+
+    return HttpResponse(system_log.info)

@@ -501,6 +501,7 @@ def asset_update(request):
 
 @require_role('admin')
 def asset_update_batch(request):
+    user = request.user
     if request.method == 'POST':
         arg = request.GET.get('arg', '')
         name = unicode(request.user.username) + ' - ' + u'自动更新'
@@ -514,7 +515,7 @@ def asset_update_batch(request):
                 asset = get_object(Asset, id=asset_id)
                 if asset:
                     asset_list.append(asset)
-        task_ansible_update.delay(asset_list, name)
+        task_ansible_update.delay(user, asset_list, name)
         # asset_ansible_update(asset_list, name)
         return HttpResponse(u'正在更新中,请稍后查看!')
     return HttpResponse(u'正在更新中,请稍后查看!')
@@ -625,6 +626,7 @@ def asset_upload_to_update(request):
             remote_ip = row[9]
             other_ip = row[10]
             status = row[11]
+            comment = row[12]
             if status == '已使用':
                 status = 1
             elif status == '未使用':
@@ -678,6 +680,8 @@ def asset_upload_to_update(request):
                 a.env = env
             if is_active:
                 a.is_active = is_active
+            if comment:
+                a.comment = comment
             a.save()
 
     return my_render('jasset/asset_update_from_excel.html', locals(), request)

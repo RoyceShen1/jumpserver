@@ -378,6 +378,7 @@ def asset_ansible_update(obj_list, name=''):
     ansible_instance = MyRunner(resource)
     ansible_asset_info = ansible_instance.run(module_name='setup', pattern='*')
     logger.debug('获取硬件信息: %s' % ansible_asset_info)
+    assets_info = []
     for asset in obj_list:
         try:
             setup_info = ansible_asset_info['contacted'][asset.hostname]['ansible_facts']
@@ -389,6 +390,7 @@ def asset_ansible_update(obj_list, name=''):
             try:
                 asset_info = get_ansible_asset_info(asset.ip, setup_info)
                 print asset_info
+                assets_info.append(asset_info)
                 other_ip, mac, cpu, memory, disk, sn, system_type, system_version, brand, system_arch = asset_info
                 asset_dic = {"other_ip": other_ip,
                              "mac": mac,
@@ -406,6 +408,7 @@ def asset_ansible_update(obj_list, name=''):
             except Exception as e:
                 logger.error("save setup info failed! %s" % e)
                 traceback.print_exc()
+    return assets_info
 
 
 def asset_ansible_update_all():
