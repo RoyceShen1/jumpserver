@@ -347,14 +347,9 @@ def asset_list(request):
                 asset = get_object(Asset, id=asset_id)
                 if asset:
                     asset_find.append(asset)
-        # print export
-        print asset_find
-        import traceback
         asset_find = sorted(asset_find, key=lambda ip: long(''.join(["%02X" % long(i) for i in ip.ip.split('.')]), 16))
-        try:
-            s = write_excel(asset_find)
-        except:
-            traceback.print_exc()
+        asset_find = asset_find.distinct()
+        s = write_excel(asset_find)
         if s[0]:
             file_name = s[1]
         smg = u'excel文件已生成，请点击下载!'
