@@ -139,7 +139,7 @@ def task_root_check(user):
     if not asset_result['failed']:
         msg = u"root连通性检查全部通过"
     else:
-        msg = u"以下资产root账户存在问题:<br>%s"%(asset_result['failed'])
+        msg = u"以下资产root账户存在问题:<br>%s"%(','.join(asset_result['failed']))
     SystemLog.objects.create(user = user, log_type = 'root账户连通性检查', info = msg)
 
 def root_all_check():
