@@ -10,7 +10,7 @@ from jperm.perm_api import get_group_asset_perm, get_group_user_perm
 import json
 from django.forms.models import model_to_dict
 
-from jumpserver.celerytasks import task_ansible_update
+from jumpserver.celerytasks import task_ansible_update,task_root_check
 
 @require_role('admin')
 def group_add(request):
@@ -714,4 +714,6 @@ def asset_check(request):
     return my_render('jasset/asset_check.html', locals(), request)
 
 def root_check(request):
-    return HttpResponse("root check ok")
+    user = request.user
+    task_root_check.delay()
+    return HttpResponse("已经开始检查,请稍后查看结果")
