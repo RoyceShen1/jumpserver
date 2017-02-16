@@ -715,5 +715,5 @@ def asset_check(request):
 
 def root_check(request):
     user = request.user
-    task_root_check.delay()
+    task_root_check.delay(user)
     return HttpResponse("已经开始检查,请稍后查看结果")
