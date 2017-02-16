@@ -2,6 +2,12 @@
 {% load mytags %}
 
 {% block self_head_css_js %}
+
+    {% load staticfiles %}
+    <script src="{% static 'js/jquery.shiftcheckbox.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/iziModal.min.css' %}">
+    <script src="{% static 'js/iziModal.min.js' %}" type="text/javascript"></script>
+
     <style>
     .terminal {
         border: #000 solid 5px;
@@ -149,15 +155,31 @@
             </div>
         </div>
     </div>
+    <div id="modal-default" class="iziModal">
+        hello world!
+    </div>
 {% endblock %}
 {% block self_footer_js %}
 <script type="text/javascript">
+
+    function modal_init(){
+        $("#modal-default").iziModal({
+            title: "操作结果",
+            iconClass: 'icon-announcement',
+            width: 700,
+            padding: 20,
+            onClosed: function() {$('#modal-default').iziModal('destroy');} 
+        });
+    }
+
     $('.log_record').click(function(){
         id = $(this).attr('value')
         $.get('{% url "system_record_api" %}?id=' + id,
                 {},
                 function(data){
-                    console.log(data)
+                    $('#modal-default').html(data)
+                    modal_init()
+                    $('#modal-default').iziModal('open');
                 }
         )
     })
