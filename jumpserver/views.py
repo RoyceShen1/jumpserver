@@ -435,7 +435,7 @@ def system_record(request):
 
     header_title, path1 = u'操作记录', u'管理员操作'
 
-    logs = SystemLog.objects.all()
+    logs = SystemLog.objects.all().order_by('-id')
 
     contact_list, p, contacts, page_range, current_page, show_first, show_end = pages(logs, request)
 
