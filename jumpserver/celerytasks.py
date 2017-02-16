@@ -17,6 +17,9 @@ sys.path.append('../')
 from jumpserver.settings import EMAIL_HOST_USER
 from jlog.models import SystemLog
 
+from jumpserver.api import CRYPTOR
+import paramiko
+
 
 MAIL_FROM = EMAIL_HOST_USER
 
