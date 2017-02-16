@@ -29,7 +29,14 @@ from jasset.asset_api import asset_ansible_update
 @celery.task(name='task_ansible_update')
 def task_ansible_update(user, asset_list, name):
 	result = asset_ansible_update(asset_list, name)
-	SystemLog.objects.create(user = user, log_type = 'ansible配置更新', info = result)
+	all_assets = []
+	for asset in asset_list:
+		all_assets.append(asset.hostname)
+	if not result:
+		msg = u"更新以下资产%s <br> 全部成功"%(','.join(all_assets))
+	else:
+		msg = u"更新以下资产%s <br> "%(','.join(all_assets)) + u"资产%s更新失败"%(','.join(result))
+	SystemLog.objects.create(user = user, log_type = 'ansible配置更新', info = msg)
 
 
 from jasset.models import Asset,AssetGroup
