@@ -129,3 +129,29 @@ def task_ansible_role_push(user,push_task,role):
                                                             ','.join(success_asset.keys()))
 
     SystemLog.objects.create(user = user, log_type = 'ansible用户推送', info = msg)
+
+@celery.task(name='task_root_check')
+def task_root_check():
+    root_all_check()
+
+def root_all_check():
+    print '开始检查资产root账户可用性'
+    assets = Asset.objects.all()
+    for asset in assets:
+        username = 'root'
+        password = CRYPTOR.decrypt(asset.password)
+        ssh_connect_check(asset.ip, username, password)
+
+def ssh_connect_check(hostname, username, password):
+    s = paramiko.SSHClient()
+    s.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    try:
+        s.connect(hostname = hostname, username = username, password = password)
+        s.close()
+        print hostname, 'right'
+        
+    except Exception as e:
+        print hostname, e, 'wrong'
+        return False
+    
+    return True

@@ -707,3 +707,11 @@ def asset_info(request):
 def asset_update_from_excel(request):
     header_title, path1, path2 = u'更新资产', u'资产管理', u'批量更新'
     return my_render('jasset/asset_update_from_excel.html', locals(), request)
+
+@require_role('admin')
+def asset_check(request):
+    header_title, path1, path2 = u'资产检测', u'资产管理', u'资产检测'
+    return my_render('jasset/asset_check.html', locals(), request)
+
+def root_check(request):
+    return HttpResponse("root check ok")
