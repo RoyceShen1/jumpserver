@@ -738,7 +738,7 @@ def relation_api(request):
     for each_machine in physical_machines:
         m_list = []
         for v in each_machine.virtual_machine.all():
-            m = {'ip':v.ip, 'hostname':v.ip, 'comment':v.comment}
+            m = {'ip':v.ip, 'hostname':v.hostname, 'comment':v.comment}
             m_list.append(m)
 
         r = {}
