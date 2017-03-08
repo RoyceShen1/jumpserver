@@ -25,5 +25,7 @@ urlpatterns = patterns('',
     url(r'^idc/del/$', idc_del, name='idc_del'),
     url(r'^asset/info/$', asset_info, name='asset_info'),
     url(r'^asset_check/$', asset_check, name='asset_check'),
-    url(r'^asset/root_check', root_check, name='root_check')
+    url(r'^asset/root_check/$', root_check, name='root_check'),
+    url(r'^relation/list/$', relation_list, name='relation_list'),
+    url(r'^relation/api/$', relation_api, name='relation_api'),
 )

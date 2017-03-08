@@ -206,7 +206,7 @@ def write_excel(asset_all):
     worksheet.set_column('G:Z', 15)
     title = [u'主机名', u'IP', u'IDC', u'所属主机组', u'操作系统', u'CPU', u'内存(G)', u'硬盘(G)',
              u'MAC', u'远控IP', u'其他IP',u'机器状态', u'备注', u'硬件厂商型号', u'系统平台',u'SN编号', 
-             u'资产编号', u'机柜号', u'机架号', u'主机类型', u'运行环境', u'是否激活']
+             u'资产编号', u'机柜号', u'机架号', u'主机类型', u'运行环境', u'是否激活',u'物理机IP']
     for asset in asset_all:
         group_list = []
         for p in asset.group.all():
@@ -224,6 +224,11 @@ def write_excel(asset_all):
         else:
             is_active = '未激活'
 
+        if asset.host_machine:
+            host_machine_ip = asset.host_machine.ip
+        else:
+            host_machine_ip = ''
+
         idc_name = asset.idc.name if asset.idc else u''
         system_type = asset.system_type if asset.system_type else u''
         system_version = asset.system_version if asset.system_version else u''
@@ -232,7 +237,7 @@ def write_excel(asset_all):
         alter_dic = [asset.hostname, asset.ip, idc_name, group_all, system_os, asset.cpu, asset.memory,
                      disk, asset.mac, asset.remote_ip, asset.other_ip, status, asset.comment, asset.brand, 
                      asset.system_arch, asset.sn, asset.number , asset.cabinet, asset.position, 
-                     asset_type, env, is_active]
+                     asset_type, env, is_active, host_machine_ip]
         data.append(alter_dic)
     format = workbook.add_format()
     format.set_border(1)

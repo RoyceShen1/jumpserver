@@ -89,7 +89,8 @@ class Asset(models.Model):
     date_added = models.DateTimeField(auto_now=True, null=True)
     is_active = models.BooleanField(default=True, verbose_name=u"是否激活")
     comment = models.CharField(max_length=128, blank=True, null=True, verbose_name=u"备注")
-    host_ip = models.CharField(max_length=32, blank=True, null=True, verbose_name=u"宿主机IP")
+    # host_ip = models.CharField(max_length=32, blank=True, null=True, verbose_name=u"宿主机IP")
+    host_machine = models.ForeignKey('self', related_name = 'virtual_machine', null=True, blank=True, verbose_name='所属物理机') 
 
     def __unicode__(self):
         return self.ip

@@ -341,19 +341,23 @@ def asset_list(request):
             Q(system_version__contains=keyword))
 
     if export:
-        if asset_id_all:
-            asset_find = []
-            for asset_id in asset_id_all:
-                asset = get_object(Asset, id=asset_id)
-                if asset:
-                    asset_find.append(asset)
-        asset_find = asset_find.distinct()
-        asset_find = sorted(asset_find, key=lambda ip: long(''.join(["%02X" % long(i) for i in ip.ip.split('.')]), 16))
-        s = write_excel(asset_find)
-        if s[0]:
-            file_name = s[1]
-        smg = u'excel文件已生成，请点击下载!'
-        return my_render('jasset/asset_excel_download.html', locals(), request)
+        import traceback
+        try:
+            if asset_id_all:
+                asset_find = []
+                for asset_id in asset_id_all:
+                    asset = get_object(Asset, id=asset_id)
+                    if asset:
+                        asset_find.append(asset)
+            asset_find = asset_find.distinct()
+            asset_find = sorted(asset_find, key=lambda ip: long(''.join(["%02X" % long(i) for i in ip.ip.split('.')]), 16))
+            s = write_excel(asset_find)
+            if s[0]:
+                file_name = s[1]
+            smg = u'excel文件已生成，请点击下载!'
+            return my_render('jasset/asset_excel_download.html', locals(), request)
+        except:
+            traceback.print_exc()
     # 去重,按ip排序
     asset_find = asset_find.distinct()
     asset_find = sorted(asset_find, key=lambda ip: long(''.join(["%02X" % long(i) for i in ip.ip.split('.')]), 16))
@@ -642,6 +646,7 @@ def asset_upload_to_update(request):
             cabinet = row[17]
             position = row[18]
             asset_type = row[19]
+            host_machine_ip = row[22]
             if asset_type == '物理机':
                 asset_type = 1
             elif asset_type == '虚拟机':
@@ -687,6 +692,8 @@ def asset_upload_to_update(request):
                 a.is_active = is_active
             if comment:
                 a.comment = comment
+            if host_machine_ip:
+                a.host_machine = Asset.objects.get(ip = host_machine_ip)
             a.save()
 
     return my_render('jasset/asset_update_from_excel.html', locals(), request)
@@ -717,3 +724,27 @@ def root_check(request):
     user = request.user
     task_root_check.delay(user)
     return HttpResponse("已经开始检查,请稍后查看结果")
+
+def relation_list(request):
+    header_title, path1, path2 = u'物理资产', u'资产管理', u'资产关系'
+    return my_render('jasset/asset_relation_list.html', locals(), request)
+
+def relation_api(request):
+
+    search_content = request.POST.get('search_content','')
+
+    physical_machines = Asset.objects.filter(asset_type=1).filter(ip__contains=search_content)
+    relationship = []
+    for each_machine in physical_machines:
+        m_list = []
+        for v in each_machine.virtual_machine.all():
+            m = {'ip':v.ip, 'hostname':v.ip, 'comment':v.comment}
+            m_list.append(m)
+
+        r = {}
+        r['physical_machine'] = each_machine.ip
+        r['virtual_machine'] = m_list
+        relationship.append(r)
+
+
+    return HttpResponse(json.dumps(relationship), content_type = "application/json")
