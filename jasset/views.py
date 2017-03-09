@@ -743,7 +743,6 @@ def relation_api(request):
     search_content = request.POST.get('search_content','')
 
     physical_machines = Asset.objects.filter(asset_type=1).filter(Q(ip__contains=search_content)|Q(group__name__contains=search_content)).distinct().order_by('-virtual_machine')
-    physical_machines = physical_machines.order_by('')
     relationship = []
     for each_machine in physical_machines:
         m_list = []
