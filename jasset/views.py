@@ -255,7 +255,7 @@ def asset_edit(request):
                 else:
                     emg = u'主机 %s 修改失败' % ip
                     raise ServerError(emg)
-                    
+
             host_machine_ip = request.POST.get('host_machine_ip','')
             host_machine = Asset.objects.get(ip = host_machine_ip)
             asset.host_machine = host_machine
@@ -742,7 +742,7 @@ def relation_api(request):
 
     search_content = request.POST.get('search_content','')
 
-    physical_machines = Asset.objects.filter(asset_type=1).filter(ip__contains=search_content)
+    physical_machines = Asset.objects.filter(asset_type=1).filter(Q(ip__contains=search_content)|Q(group__name__contains=search_content)).distinct()
     relationship = []
     for each_machine in physical_machines:
         m_list = []
