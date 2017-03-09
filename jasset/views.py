@@ -742,9 +742,18 @@ def relation_api(request):
 
     search_content = request.POST.get('search_content','')
 
-    physical_machines = Asset.objects.filter(asset_type=1).filter(Q(ip__contains=search_content)|Q(group__name__contains=search_content)).distinct().order_by('-virtual_machine')
+    physical_machines = Asset.objects.filter(asset_type=1).filter(Q(ip__contains=search_content)|Q(group__name__contains=search_content)).distinct()
+    physical_machines_list1 = []
+    physical_machines_list2 = []
+    for p in physical_machines:
+        if p.virtual_machine.all().count() == 0:
+            physical_machines_list2.append(p)
+        else:
+            physical_machines_list1.append(p)
+    physical_machines_list = physical_machines_list1 + physical_machines_list2
+
     relationship = []
-    for each_machine in physical_machines:
+    for each_machine in physical_machines_list:
         m_list = []
         for v in each_machine.virtual_machine.all():
             m = {'ip':v.ip, 'hostname':v.hostname, 'comment':v.comment}
