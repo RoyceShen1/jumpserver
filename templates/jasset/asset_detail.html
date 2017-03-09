@@ -161,6 +161,10 @@
                                         <td class="text-navy">备注</td>
                                         <td>{{ asset.comment|default_if_none:"" }}</td>
                                     </tr>
+                                    <tr>
+                                        <td class="text-navy">所属物理机IP</td>
+                                        <td>{{ asset.host_machine.ip|default_if_none:"" }}</td>
+                                    </tr>
                                 </table>
                             </div>
                         </div>

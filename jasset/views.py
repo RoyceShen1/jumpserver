@@ -209,11 +209,13 @@ def asset_edit(request):
     asset_id = request.GET.get('id', '')
     username = request.user.username
     asset = get_object(Asset, id=asset_id)
+
     if asset:
         password_old = asset.password
     # asset_old = copy_model_instance(asset)
     af = AssetForm(instance=asset)
     if request.method == 'POST':
+
         af_post = AssetForm(request.POST, instance=asset)
         ip = request.POST.get('ip', '')
         hostname = request.POST.get('hostname', '')
@@ -253,9 +255,16 @@ def asset_edit(request):
                 else:
                     emg = u'主机 %s 修改失败' % ip
                     raise ServerError(emg)
+                    
+            host_machine_ip = request.POST.get('host_machine_ip','')
+            host_machine = Asset.objects.get(ip = host_machine_ip)
+            asset.host_machine = host_machine
+            asset.save()
+
         except ServerError as e:
             error = e.message
             return my_render('jasset/asset_edit.html', locals(), request)
+
         return HttpResponseRedirect(reverse('asset_detail')+'?id=%s' % asset_id)
 
     return my_render('jasset/asset_edit.html', locals(), request)

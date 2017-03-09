@@ -149,8 +149,17 @@
                                             </div>
                                         </div>
 
-                                       <div class="hr-line-dashed"></div>
+                                        <div class="hr-line-dashed"></div>
                                         {{ af.comment|bootstrap_horizontal }}
+
+                        
+                                        <div class="form-group" id="host_machine">
+                                            <div class="hr-line-dashed"></div>
+                                            <label class="col-sm-2 control-label"> 物理机 </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" placeholder="物理机IP" value="{{asset.host_machine.ip}}" name="host_machine_ip" class="form-control">
+                                                </div>
+                                        </div>
 
                                         <div class="hr-line-dashed"></div>
                                         <div class="form-group">
