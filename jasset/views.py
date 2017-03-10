@@ -749,9 +749,9 @@ def relation_api(request):
     elif search_field == 2:
         physical_machines = physical_machines.filter(ip__contains = search_content)
     elif search_field == 3:
-        pass
+        physical_machines = physical_machines.filter(virtual_machine__ip__contains = search_content)
     elif search_field == 4:
-        pass
+        physical_machines = physical_machines.filter(virtual_machine__hostname__contains = search_content)
 
     physical_machines = physical_machines.distinct()
     physical_machines_list1 = []
