@@ -741,8 +741,19 @@ def relation_list(request):
 def relation_api(request):
 
     search_content = request.POST.get('search_content','')
+    search_field = int(request.POST.get('field',''))
 
-    physical_machines = Asset.objects.filter(asset_type=1).filter(Q(ip__contains=search_content)|Q(group__name__contains=search_content)).distinct()
+    physical_machines = Asset.objects.filter(asset_type=1)
+    if search_field == 1:
+        physical_machines = physical_machines.filter(group__name__contains = search_content)
+    elif search_field == 2:
+        physical_machines = physical_machines.filter(ip__contains = search_content)
+    elif search_field == 3:
+        pass
+    elif search_field == 4:
+        pass
+
+    physical_machines = physical_machines.distinct()
     physical_machines_list1 = []
     physical_machines_list2 = []
     for p in physical_machines:

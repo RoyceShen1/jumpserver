@@ -49,8 +49,29 @@
                 </table> -->
 
                 <div class="ibox-content">
+                    <div class="col-sm-6"></div>
+                    <div class="col-sm-2" style="padding-right: 0">
+                        <label>
+                            <select id="field" name="asset_type" class="form-control m-b input-sm">
+                                <option value="0">搜索字段</option>
+                                <option value="1">物理机组</option>
+                                <option value="2">物理机IP</option>
+                                <option value="3">虚拟机IP</option>
+                                <option value="4">虚拟机主机名</option>
+                            </select>
+                        </label>
+                    </div>
 
-                    <input type="text" id="search_content" class="form-control m-b input-sm" id="search_input" name="keyword" placeholder="Search">
+                    <div class="col-sm-4" style="padding-right: 0">
+                         <div class="input-group inline-group">
+                            <input type="text" class="form-control m-b input-sm" id="search_content" placeholder="Search">
+                            <div class="input-group-btn">
+                                <button id='search_btn' href="{% url 'asset_list' %}?search=true" type="button" class="btn btn-sm btn-primary search-btn"  onclick="search_func()">
+                                    - 搜索 -
+                                </button>
+                            </div>
+                        </div>
+                    </div>
 
                     <table class="table table-bordered table-condensed">
                         <thead>
@@ -86,10 +107,10 @@
 {% block self_footer_js %}
 <script>
 
-function get_relationship(search_content){
+function get_relationship(field, search_content){
     $.ajax({
         type: "post",
-        data: {search_content:search_content},
+        data: {search_content:search_content, field:field},
         url: "{% url 'relation_api' %}",
         success: function (ret) {
             html = ""
@@ -128,10 +149,16 @@ function get_relationship(search_content){
 $('#search_content').bind('keypress', function (event) {
     if (event.keyCode == "13") {
         search_content = $("#search_content")[0].value
-      // console.log(search_content)
-        get_relationship(search_content)
+        field = $('#field').val()
+        get_relationship(field, search_content)
     }
 });
+
+function search_func(){
+    search_content = $("#search_content")[0].value
+    field = $('#field').val()
+    get_relationship(field, search_content)
+}
 
 get_relationship('')
 
