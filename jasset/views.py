@@ -257,9 +257,10 @@ def asset_edit(request):
                     raise ServerError(emg)
 
             host_machine_ip = request.POST.get('host_machine_ip','')
-            host_machine = Asset.objects.get(ip = host_machine_ip)
-            asset.host_machine = host_machine
-            asset.save()
+            if host_machine:
+                host_machine = Asset.objects.get(ip = host_machine_ip)
+                asset.host_machine = host_machine
+                asset.save()
 
         except ServerError as e:
             error = e.message
