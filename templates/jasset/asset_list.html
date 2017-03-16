@@ -414,7 +414,7 @@
 
     function modal_init(){
         $("#modal-alert").iziModal({
-            title: "Your message has been sent successfully",
+            title: "已经更新,请稍后查看",
             iconClass: 'icon-check',
             headerColor: '#5bbd72',
             width: 600,
@@ -433,7 +433,7 @@
                     success: function (ret) {
                         // parent.location.reload();
                         modal_init()
-                        $('#modal-alert').iziModal('setTitle', ret);
+                        // $('#modal-alert').iziModal('setTitle', ret);
                         $('#modal-alert').iziModal('open');
                     }
                 });
