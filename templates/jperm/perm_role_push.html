@@ -97,6 +97,14 @@
     </div>
     <div id="modal-alert" class="iziModal"></div>
 {% endblock %}
+
+{% block self_head_css_js %}
+    {% load staticfiles %}
+    <script src="{% static 'js/jquery.shiftcheckbox.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/iziModal.min.css' %}">
+    <script src="{% static 'js/iziModal.min.js' %}" type="text/javascript"></script>
+{% endblock %}
+
 {% block self_footer_js %}
 <script>
 
