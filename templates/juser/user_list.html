@@ -139,12 +139,15 @@
 
         });
 
-        $("#modal-alert").iziModal({
-            title: "Your message has been sent successfully",
-            iconClass: 'icon-check',
-            headerColor: '#5bbd72',
-            width: 600
-        });
+        function modal_init(){
+            $("#modal-alert").iziModal({
+                title: "邮件发送成功",
+                iconClass: 'icon-check',
+                headerColor: '#5bbd72',
+                width: 600,
+                onClosed: function() {$('#modal-alert').iziModal('destroy');} 
+            });
+        }
 
         // function info(data){
         //     $("#modal-alert").iziModal({
@@ -161,7 +164,7 @@
                     {},
                     function(data){
                         // info()
-                        $('#modal-alert').iziModal('setTitle', '邮件发送成功');
+                        modal_init()
                         $('#modal-alert').iziModal('open');
                         // alert(data)
                     }

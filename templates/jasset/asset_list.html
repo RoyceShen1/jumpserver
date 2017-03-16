@@ -412,6 +412,16 @@
         }
     });
 
+    function modal_init(){
+        $("#modal-alert").iziModal({
+            title: "Your message has been sent successfully",
+            iconClass: 'icon-check',
+            headerColor: '#5bbd72',
+            width: 600,
+            onClosed: function() {$('#modal-alert').iziModal('destroy');}
+        });
+    }
+
     $('#asset_update').click(function () {
         var asset_id_all = getIDall();
         if (asset_id_all == ''){
@@ -422,6 +432,7 @@
                     url: "{% url 'asset_update_batch' %}?arg=all",
                     success: function (ret) {
                         // parent.location.reload();
+                        modal_init()
                         $('#modal-alert').iziModal('setTitle', ret);
                         $('#modal-alert').iziModal('open');
                     }
@@ -463,13 +474,6 @@
         if(e.keyCode==13){
             change_info()
             }
-    });
-
-    $("#modal-alert").iziModal({
-        title: "Your message has been sent successfully",
-        iconClass: 'icon-check',
-        headerColor: '#5bbd72',
-        width: 600
     });
 
 </script>
