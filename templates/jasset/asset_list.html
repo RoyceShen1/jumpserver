@@ -447,7 +447,7 @@
                 url: "{% url 'asset_update_batch' %}",
                 success: function (ret) {
                     // parent.location.reload();
-                    $('#modal-alert').iziModal('setTitle', ret);
+                    modal_init()
                     $('#modal-alert').iziModal('open');
                 }
             });
