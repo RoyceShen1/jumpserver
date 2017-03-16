@@ -98,6 +98,17 @@
 {% endblock %}
 {% block self_footer_js %}
 <script>
+
+function modal_init(){
+    $("#modal-alert").iziModal({
+        title: "已经更新,请稍后在操作记录查看结果",
+        iconClass: 'icon-check',
+        headerColor: '#5bbd72',
+        width: 600,
+        onClosed: function() {$('#modal-alert').iziModal('destroy');}
+    });
+}
+
 $('#pushForm').validator({
     timely: 2,
     theme: "yellow_right_effect",
@@ -120,6 +131,8 @@ $('#pushForm').validator({
         }
     },
     valid: function(form) {
+            modal_init()
+            $('#modal-alert').iziModal('open');
             form.submit();
         }
 });
