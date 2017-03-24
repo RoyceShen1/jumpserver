@@ -400,9 +400,9 @@ def log_report(request):
     for u in users:
         user_dict = {}
         user_dict['name'] = u.name
-        user_dict['times_week'] = Log.objects.filter(start_time__range=[from_week, datetime.datetime.now()],user=user).count()
-        user_dict['times_all'] = Log.objects.filter(user=user).count()
-        user_dict['time_last_login'] = Log.objects.filter(user=user).order_by('-start_time')[0].start_time
+        user_dict['times_week'] = Log.objects.filter(start_time__range=[from_week, datetime.datetime.now()],user=u).count()
+        user_dict['times_all'] = Log.objects.filter(user=u).count()
+        user_dict['time_last_login'] = Log.objects.filter(user=u).order_by('-start_time')[0].start_time
         users_list_dict.append(user_dict)
 
     return my_render('jlog/log_report.html', locals(), request)
