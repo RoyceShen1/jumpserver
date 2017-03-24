@@ -9,5 +9,5 @@ urlpatterns = patterns('',
                        url(r'^log_kill/', log_kill, name='log_kill'),
                        url(r'^record/$', log_record, name='log_record'),
                        url(r'^report/$', log_report, name='log_report'),
-                       url(r'^report_user/$', log_report_user, name='log_report_user'),
+                       url(r'^report_asset/$', log_report_asset, name='log_report_asset'),
                       )
