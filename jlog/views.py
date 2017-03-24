@@ -391,9 +391,7 @@ def log_report(request):
     user = request.user
     header_title, path1 = u'审计', u'统计报表'
 
-    users_list = User.objects.all().order_by('username')
-    users_list, p, users, page_range, current_page, show_first, show_end = pages(users_list, request)
-
+    users = User.objects.all().order_by('username')
     from_week = datetime.datetime.now() - datetime.timedelta(days=7)
 
     users_list_dict = []
@@ -403,9 +401,12 @@ def log_report(request):
         user_dict['times_week'] = Log.objects.filter(start_time__range=[from_week, datetime.datetime.now()],user=u).count()
         user_dict['times_all'] = Log.objects.filter(user=u).count()
         if Log.objects.filter(user=user):
-            user_dict['time_last_login'] = Log.objects.filter(user=user).order_by('-start_time')[0].start_time
+            user_dict['time_last_login'] = Log.objects.filter(user=u).order_by('-start_time')[0].start_time
         else:
             user_dict['time_last_login'] = 'never'
         users_list_dict.append(user_dict)
+
+    users_list, p, users_report, page_range, current_page, show_first, show_end = pages(users_list_dict, request)
+
 
     return my_render('jlog/log_report.html', locals(), request)
