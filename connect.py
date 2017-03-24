@@ -450,7 +450,7 @@ class Nav(object):
         Print prompt
         打印提示导航
         """
-        msg = """\n\033[1;32m###    欢迎使用Jumpserver开源跳板机系统   ### \033[0m
+        msg = """\033[1;32m###    欢迎使用Jumpserver   ### \033[0m
 
         1) 输入 \033[32mID\033[0m 直接登录 或 输入\033[32m部分 IP,主机名,备注\033[0m 进行搜索登录(如果唯一).
         2) 输入 \033[32m/\033[0m + \033[32mIP, 主机名 or 备注 \033[0m搜索. 如: /ip
@@ -765,6 +765,7 @@ def main():
 
     gid_pattern = re.compile(r'^g\d+$')
     nav = Nav(login_user)
+    print "\n\033[1;32m###    hi,%s          ### \033[0m"%(nav.user.name)
     nav.print_nav()
 
     try:

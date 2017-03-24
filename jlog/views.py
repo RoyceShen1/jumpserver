@@ -4,7 +4,7 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response, render
 from jumpserver.api import *
 from jperm.perm_api import user_have_perm
-from django.http import HttpResponseNotFound
+from django.http import HttpResponseNotFound,HttpResponse
 from jlog.log_api import renderJSON
 
 from jlog.models import Log, ExecLog, FileLog, TermLog
@@ -383,3 +383,11 @@ class TermLogRecorder(object):
             TermLog.objects.get(filename=filename).user.remove(user)
             return True
         return False
+
+def log_report(request):
+
+    header_title, path1 = u'审计', u'统计报表'
+
+    
+
+    return my_render('jlog/log_report.html', locals(), request)
