@@ -408,9 +408,7 @@ def log_report(request):
         users_list_dict.append(user_dict)
 
     users_list_dict = sorted(users_list_dict, key = lambda x:x['times_week'], reverse = True)
-
     users_list, p, users_report, page_range, current_page, show_first, show_end = pages(users_list_dict, request)
-
 
     return my_render('jlog/log_report.html', locals(), request)
 
@@ -433,9 +431,9 @@ def log_report_asset(request):
             asset_dict['time_last_login'] = Log.objects.filter(host=a.hostname).order_by('-start_time')[0].start_time
         else:
             asset_dict = 'never'
+        assets_list_dict.append(asset_dict)
 
     assets_list_dict = sorted(assets_list_dict, key = lambda x:x['times_week'], reverse = True)
-
     assets_list, p, assets_report, page_range, current_page, show_first, show_end = pages(assets_list_dict, request)
 
     return my_render("jlog/log_report_asset.html", locals(), request)
