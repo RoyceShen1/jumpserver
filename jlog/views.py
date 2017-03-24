@@ -412,3 +412,7 @@ def log_report(request):
 
 
     return my_render('jlog/log_report.html', locals(), request)
+
+def log_report_asset(request):
+
+    return HttpResponse("log report asset")
