@@ -430,7 +430,7 @@ def log_report_asset(request):
         if Log.objects.filter(host=a.hostname):
             asset_dict['time_last_login'] = Log.objects.filter(host=a.hostname).order_by('-start_time')[0].start_time
         else:
-            asset_dict = 'never'
+            asset_dict['time_last_login'] = 'never'
         assets_list_dict.append(asset_dict)
 
     assets_list_dict = sorted(assets_list_dict, key = lambda x:x['times_week'], reverse = True)
