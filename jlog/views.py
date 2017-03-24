@@ -13,6 +13,8 @@ from jumpserver.settings import LOG_DIR
 import zipfile
 import json
 import pyte
+import datetime
+from django.db.models import Count
 
 
 @require_role('admin')
@@ -386,8 +388,21 @@ class TermLogRecorder(object):
 
 def log_report(request):
 
+    user = request.user
     header_title, path1 = u'审计', u'统计报表'
 
-    
+    users_list = User.objects.all().order_by('username')
+    users_list, p, users, page_range, current_page, show_first, show_end = pages(users_list, request)
+
+    from_week = datetime.datetime.now() - datetime.timedelta(days=7)
+
+    users_list_dict = []
+    for u in users:
+        user_dict = {}
+        user_dict['name'] = u.name
+        user_dict['times_week'] = Log.objects.filter(start_time__range=[from_week, datetime.datetime.now()],user=user).count()
+        user_dict['times_all'] = Log.objects.filter(user=user).count()
+        user_dict['time_last_login'] = Log.objects.filter(user=user).order_by('-start_time')[0].start_time
+        users_list_dict.append(user_dict)
 
     return my_render('jlog/log_report.html', locals(), request)

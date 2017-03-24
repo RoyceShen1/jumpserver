@@ -94,8 +94,8 @@
                                 {% for log in contacts %}
                                     <tr class="gradeX">
                                         <td class="text-center"> {{ log.user.name }} </td>
-                                        <td class="text-center username"> {{ log.log_type }} </td>
-                                        <td class="text-center ip"> {{ log.time_added|date:"Y-m-d H:i:s" }} </td>
+                                        <td class="text-center"> {{ log.log_type }} </td>
+                                        <td class="text-center"> {{ log.time_added|date:"Y-m-d H:i:s" }} </td>
                                         <td class="text-center"><a value="{{ log.id }}" class="log_record"> 查看 </a></td>
                                     </tr>
                                 {% endfor %}

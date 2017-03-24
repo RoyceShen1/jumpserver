@@ -91,6 +91,14 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {% for u in users_list_dict %}
+                                    <tr>
+                                        <td class="text-center">{{u.name}}</td>
+                                        <td class="text-center">{{u.times_week}}</td>
+                                        <td class="text-center">{{u.times_all}}</td>
+                                        <td class="text-center">{{u.time_last_login}}</td>
+                                    </tr>
+                                    {% endfor %}
 <!--                                 {% for log in contacts %}
                                     <tr class="gradeX">
                                         <td class="text-center"> {{ log.user.name }} </td>
