@@ -406,7 +406,7 @@ def log_report(request):
             user_dict['time_last_login'] = 'never'
         users_list_dict.append(user_dict)
 
-    users_list_dict = sorted(users_list_dict, key = lambda x:x['times_week'])
+    users_list_dict = sorted(users_list_dict, key = lambda x:x['times_week'], reverse = True)
 
     users_list, p, users_report, page_range, current_page, show_first, show_end = pages(users_list_dict, request)
 
