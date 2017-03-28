@@ -149,7 +149,7 @@ def root_all_check():
     asset_result['success'] = []
     asset_result['failed'] = []
     for asset in assets:
-        username = 'root'
+        username = asset.username
         password = CRYPTOR.decrypt(asset.password)
         result = ssh_connect_check(asset.ip, username, password)
         if result:
