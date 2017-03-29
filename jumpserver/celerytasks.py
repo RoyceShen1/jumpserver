@@ -151,18 +151,19 @@ def root_all_check():
     for asset in assets:
         username = asset.username
         password = CRYPTOR.decrypt(asset.password)
-        result = ssh_connect_check(asset.ip, username, password)
+        port = asset.port
+        result = ssh_connect_check(asset.ip, username, password, port)
         if result:
             asset_result['success'].append(asset.hostname)
         else:
             asset_result['failed'].append(asset.hostname)
     return asset_result
 
-def ssh_connect_check(hostname, username, password):
+def ssh_connect_check(hostname, username, password, port):
     s = paramiko.SSHClient()
     s.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     try:
-        s.connect(hostname = hostname, username = username, password = password)
+        s.connect(hostname = hostname, username = username, password = password, port = port)
         s.close()
         print hostname, 'right'
         
