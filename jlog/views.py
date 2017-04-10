@@ -415,7 +415,8 @@ def log_report(request):
         users = User.objects.all().order_by('-year_times')
     
     if not week and not month and not quarter and not year:
-        users = User.objects.all()
+        week = 1
+        users = User.objects.all().order_by('week_times')
 
     users_list, p, users, page_range, current_page, show_first, show_end = pages(users, request)
 

@@ -88,26 +88,22 @@
                                         <th class="text-center"> 用户名 </th>
                                         {% if week == '1' %}
                                         <th class="text-center"> <a href="?week=0">周登录次数</a> </th>
-                                        {% endif %}
-                                        {% if week == '0' %}
+                                        {% else %}
                                         <th class="text-center"> <a href="?week=1">周登录次数</a> </th>
                                         {% endif %}
                                         {% if month == '1' %}
                                         <th class="text-center"> <a href="?month=0">月登录次数</a> </th>
-                                        {% endif %}
-                                        {% if month == '0' %}
+                                        {% else %}
                                         <th class="text-center"> <a href="?month=1">月登录次数</a> </th>
                                         {% endif %}
                                         {% if quarter == '1' %}
                                         <th class="text-center"> <a href="?quarter=0">季登录次数</a> </th>
-                                        {% endif %}
-                                        {% if quarter == '0' %}
+                                        {% else %}
                                         <th class="text-center"> <a href="?quarter=1">季登录次数</a> </th>
                                         {% endif %}
                                         {% if year == '1' %}
                                         <th class="text-center"> <a href="?year=0">年登录次数</a> </th>
-                                        {% endif %}
-                                        {% if year == '0' %}
+                                        {% else %}
                                         <th class="text-center"> <a href="?year=1">年登录次数</a> </th>
                                         {% endif %}
 <!--                                         <th class="text-center"> 月登录次数 </th>
