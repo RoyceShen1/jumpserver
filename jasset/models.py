@@ -90,7 +90,12 @@ class Asset(models.Model):
     is_active = models.BooleanField(default=True, verbose_name=u"是否激活")
     comment = models.CharField(max_length=128, blank=True, null=True, verbose_name=u"备注")
     # host_ip = models.CharField(max_length=32, blank=True, null=True, verbose_name=u"宿主机IP")
-    host_machine = models.ForeignKey('self', related_name = 'virtual_machine', null=True, blank=True, verbose_name='所属物理机') 
+    host_machine = models.ForeignKey('self', related_name = 'virtual_machine', null=True, blank=True, verbose_name='所属物理机')
+    week_times = models.IntegerField(default = 0, verbose_name=u'周登录次数')
+    month_times = models.IntegerField(default = 0, verbose_name=u'月登录次数')
+    quarter_times = models.IntegerField(default = 0, verbose_name=u'季度登录次数')
+    year_times = models.IntegerField(default = 0, verbose_name=u'年登录次数')
+    recent_login = models.DateField(blank=True, null=True, verbose_name=u'最近登录时间') 
 
     def __unicode__(self):
         return self.ip
