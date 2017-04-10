@@ -418,22 +418,22 @@ def log_report_asset(request):
     header_title, path1 = u'审计', u'统计报表'
 
     assets = Asset.objects.all()
-    from_week = datetime.datetime.now() - datetime.timedelta(days=7)
+    # from_week = datetime.datetime.now() - datetime.timedelta(days=7)
 
-    assets_list_dict = []
-    for a in assets:
-        asset_dict = {}
-        asset_dict['hostname'] = a.hostname
-        asset_dict['ip'] = a.ip
-        asset_dict['times_week'] = Log.objects.filter(start_time__range=[from_week, datetime.datetime.now()],host=a.hostname).count()
-        asset_dict['times_all'] = Log.objects.filter(host=a.hostname).count()
-        if Log.objects.filter(host=a.hostname):
-            asset_dict['time_last_login'] = Log.objects.filter(host=a.hostname).order_by('-start_time')[0].start_time
-        else:
-            asset_dict['time_last_login'] = 'never'
-        assets_list_dict.append(asset_dict)
+    # assets_list_dict = []
+    # for a in assets:
+    #     asset_dict = {}
+    #     asset_dict['hostname'] = a.hostname
+    #     asset_dict['ip'] = a.ip
+    #     asset_dict['times_week'] = Log.objects.filter(start_time__range=[from_week, datetime.datetime.now()],host=a.hostname).count()
+    #     asset_dict['times_all'] = Log.objects.filter(host=a.hostname).count()
+    #     if Log.objects.filter(host=a.hostname):
+    #         asset_dict['time_last_login'] = Log.objects.filter(host=a.hostname).order_by('-start_time')[0].start_time
+    #     else:
+    #         asset_dict['time_last_login'] = 'never'
+    #     assets_list_dict.append(asset_dict)
 
-    assets_list_dict = sorted(assets_list_dict, key = lambda x:x['times_week'], reverse = True)
-    assets_list, p, assets_report, page_range, current_page, show_first, show_end = pages(assets_list_dict, request)
+    # assets_list_dict = sorted(assets_list_dict, key = lambda x:x['times_week'], reverse = True)
+    assets_list, p, assets, page_range, current_page, show_first, show_end = pages(assets, request)
 
     return my_render("jlog/log_report_asset.html", locals(), request)

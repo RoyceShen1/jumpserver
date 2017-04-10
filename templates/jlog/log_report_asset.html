@@ -87,19 +87,21 @@
                                     <tr>
                                         <th class="text-center"> 资产主机名 </th>
                                         <th class="text-center"> 资产ip </th>
-                                        <th class="text-center"> 一周内使用次数 </th>
-                                        <th class="text-center"> 总使用次数 </th>
-                                        <th class="text-center"> 最近一次使用时间 </th>
+                                        <th class="text-center"> 周登录次数 </th>
+                                        <th class="text-center"> 月登录次数 </th>
+                                        <th class="text-center"> 季登录次数 </th>
+                                        <th class="text-center"> 年登录次数 </th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {% for u in assets_report %}
+                                    {% for u in assets %}
                                     <tr>
                                         <td class="text-center">{{u.hostname}}</td>
                                         <td class="text-center">{{u.ip}}</td>
-                                        <td class="text-center">{{u.times_week}}</td>
-                                        <td class="text-center">{{u.times_all}}</td>
-                                        <td class="text-center">{{u.time_last_login|date:"Y-m-d H:i:s"}}</td>
+                                        <td class="text-center">{{u.week_times}}</td>
+                                        <td class="text-center">{{u.month_times}}</td>
+                                        <td class="text-center">{{u.quarter_times}}</td>
+                                        <td class="text-center">{{u.year_times}}</td>
                                     </tr>
                                     {% endfor %}
 <!--                                     {% for u in users_report %}
