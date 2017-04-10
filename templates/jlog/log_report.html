@@ -86,18 +86,20 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center"> 用户名 </th>
-                                        <th class="text-center"> 一周内登录次数 </th>
-                                        <th class="text-center"> 总登录次数 </th>
-                                        <th class="text-center"> 最近登陆时间 </th>
+                                        <th class="text-center"> 周登录次数 </th>
+                                        <th class="text-center"> 月登录次数 </th>
+                                        <th class="text-center"> 季登录次数 </th>
+                                        <th class="text-center"> 年登录次数 </th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {% for u in users_report %}
+                                    {% for u in users %}
                                     <tr>
                                         <td class="text-center">{{u.name}}</td>
-                                        <td class="text-center">{{u.times_week}}</td>
-                                        <td class="text-center">{{u.times_all}}</td>
-                                        <td class="text-center">{{u.time_last_login|date:"Y-m-d H:i:s"}}</td>
+                                        <td class="text-center">{{u.week_times}}</td>
+                                        <td class="text-center">{{u.month_times}}</td>
+                                        <td class="text-center">{{u.quarter_times}}</td>
+                                        <td class="text-center">{{u.year_times}}</td>
                                     </tr>
                                     {% endfor %}
 <!--                                 {% for log in contacts %}

@@ -393,22 +393,22 @@ def log_report(request):
     header_title, path1 = u'审计', u'统计报表'
 
     users = User.objects.all().order_by('username')
-    from_week = datetime.datetime.now() - datetime.timedelta(days=7)
+    # from_week = datetime.datetime.now() - datetime.timedelta(days=7)
 
-    users_list_dict = []
-    for u in users:
-        user_dict = {}
-        user_dict['name'] = u.name
-        user_dict['times_week'] = Log.objects.filter(start_time__range=[from_week, datetime.datetime.now()],user=u).count()
-        user_dict['times_all'] = Log.objects.filter(user=u).count()
-        if Log.objects.filter(user=u):
-            user_dict['time_last_login'] = Log.objects.filter(user=u).order_by('-start_time')[0].start_time
-        else:
-            user_dict['time_last_login'] = 'never'
-        users_list_dict.append(user_dict)
+    # users_list_dict = []
+    # for u in users:
+    #     user_dict = {}
+    #     user_dict['name'] = u.name
+    #     user_dict['times_week'] = Log.objects.filter(start_time__range=[from_week, datetime.datetime.now()],user=u).count()
+    #     user_dict['times_all'] = Log.objects.filter(user=u).count()
+    #     if Log.objects.filter(user=u):
+    #         user_dict['time_last_login'] = Log.objects.filter(user=u).order_by('-start_time')[0].start_time
+    #     else:
+    #         user_dict['time_last_login'] = 'never'
+    #     users_list_dict.append(user_dict)
 
-    users_list_dict = sorted(users_list_dict, key = lambda x:x['times_week'], reverse = True)
-    users_list, p, users_report, page_range, current_page, show_first, show_end = pages(users_list_dict, request)
+    # users_list_dict = sorted(users_list_dict, key = lambda x:x['times_week'], reverse = True)
+    users_list, p, users, page_range, current_page, show_first, show_end = pages(users_list_dict, request)
 
     return my_render('jlog/log_report.html', locals(), request)
 
