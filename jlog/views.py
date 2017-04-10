@@ -408,7 +408,7 @@ def log_report(request):
     #     users_list_dict.append(user_dict)
 
     # users_list_dict = sorted(users_list_dict, key = lambda x:x['times_week'], reverse = True)
-    users_list, p, users, page_range, current_page, show_first, show_end = pages(users_list_dict, request)
+    users_list, p, users, page_range, current_page, show_first, show_end = pages(users, request)
 
     return my_render('jlog/log_report.html', locals(), request)
 
