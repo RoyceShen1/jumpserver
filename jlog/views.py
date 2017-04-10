@@ -399,19 +399,19 @@ def log_report(request):
 
     if week == '1':
         users = User.objects.all().order_by('week_times')
-    else:
+    elif week == '0':
         users = User.objects.all().order_by('-week_times')
     if month == '1':
         users = User.objects.all().order_by('month_times')
-    else:
+    else month == '0':
         users = User.objects.all().order_by('-month_times')
     if quarter == '1':
         users = User.objects.all().order_by('quarter_times')
-    else:
+    else quarter == '0':
         users = User.objects.all().order_by('-quarter_times')
     if year == '1':
         users = User.objects.all().order_by('year_times')
-    else:
+    else year == '0':
         users = User.objects.all().order_by('-year_times')
     
     if not week and not month and not quarter and not year:
