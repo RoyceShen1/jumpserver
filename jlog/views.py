@@ -392,22 +392,31 @@ def log_report(request):
     user = request.user
     header_title, path1 = u'审计', u'统计报表'
 
-    users = User.objects.all().order_by('username')
-    # from_week = datetime.datetime.now() - datetime.timedelta(days=7)
+    week = request.GET.get('week','')
+    month = request.GET.get('month','')
+    quarter = request.GET.get('quarter','')
+    year = request.GET.get('year','')
 
-    # users_list_dict = []
-    # for u in users:
-    #     user_dict = {}
-    #     user_dict['name'] = u.name
-    #     user_dict['times_week'] = Log.objects.filter(start_time__range=[from_week, datetime.datetime.now()],user=u).count()
-    #     user_dict['times_all'] = Log.objects.filter(user=u).count()
-    #     if Log.objects.filter(user=u):
-    #         user_dict['time_last_login'] = Log.objects.filter(user=u).order_by('-start_time')[0].start_time
-    #     else:
-    #         user_dict['time_last_login'] = 'never'
-    #     users_list_dict.append(user_dict)
+    if week == '1':
+        users = User.objects.all().order_by('week_times')
+    else:
+        users = User.objects.all().order_by('-week_times')
+    if month == '1':
+        users = User.objects.all().order_by('month_times')
+    else:
+        users = User.objects.all().order_by('-month_times')
+    if quarter == '1':
+        users = User.objects.all().order_by('quarter_times')
+    else:
+        users = User.objects.all().order_by('-quarter_times')
+    if year == '1':
+        users = User.objects.all().order_by('year_times')
+    else:
+        users = User.objects.all().order_by('-year_times')
+    
+    if not week and not month and not quarter and not year:
+        users = User.objects.all()
 
-    # users_list_dict = sorted(users_list_dict, key = lambda x:x['times_week'], reverse = True)
     users_list, p, users, page_range, current_page, show_first, show_end = pages(users, request)
 
     return my_render('jlog/log_report.html', locals(), request)
@@ -418,22 +427,7 @@ def log_report_asset(request):
     header_title, path1 = u'审计', u'统计报表'
 
     assets = Asset.objects.all()
-    # from_week = datetime.datetime.now() - datetime.timedelta(days=7)
 
-    # assets_list_dict = []
-    # for a in assets:
-    #     asset_dict = {}
-    #     asset_dict['hostname'] = a.hostname
-    #     asset_dict['ip'] = a.ip
-    #     asset_dict['times_week'] = Log.objects.filter(start_time__range=[from_week, datetime.datetime.now()],host=a.hostname).count()
-    #     asset_dict['times_all'] = Log.objects.filter(host=a.hostname).count()
-    #     if Log.objects.filter(host=a.hostname):
-    #         asset_dict['time_last_login'] = Log.objects.filter(host=a.hostname).order_by('-start_time')[0].start_time
-    #     else:
-    #         asset_dict['time_last_login'] = 'never'
-    #     assets_list_dict.append(asset_dict)
-
-    # assets_list_dict = sorted(assets_list_dict, key = lambda x:x['times_week'], reverse = True)
     assets_list, p, assets, page_range, current_page, show_first, show_end = pages(assets, request)
 
     return my_render("jlog/log_report_asset.html", locals(), request)
