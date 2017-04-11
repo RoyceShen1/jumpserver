@@ -120,7 +120,13 @@
                                         <td class="text-center">{{u.month_times}}</td>
                                         <td class="text-center">{{u.quarter_times}}</td>
                                         <td class="text-center">{{u.year_times}}</td>
-                                        <td class="text-center">{{u.recent_login}}</td>
+                                        <td class="text-center">
+                                        {% if u.recent_login %}
+                                            {{u.recent_login}}
+                                        {% else %}
+                                            ----
+                                        {% endif %}
+                                        </td>
                                     </tr>
                                     {% endfor %}
 <!--                                 {% for log in contacts %}
