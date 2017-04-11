@@ -95,7 +95,7 @@ class Asset(models.Model):
     month_times = models.IntegerField(default = 0, verbose_name=u'月登录次数')
     quarter_times = models.IntegerField(default = 0, verbose_name=u'季度登录次数')
     year_times = models.IntegerField(default = 0, verbose_name=u'年登录次数')
-    recent_login = models.DateField(blank=True, null=True, verbose_name=u'最近登录时间') 
+    recent_login = models.DateTimeField(blank=True, null=True, verbose_name=u'最近登录时间') 
 
     def __unicode__(self):
         return self.ip

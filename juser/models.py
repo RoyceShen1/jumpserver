@@ -29,7 +29,7 @@ class User(AbstractUser):
     month_times = models.IntegerField(default = 0, verbose_name=u'月登录次数')
     quarter_times = models.IntegerField(default = 0, verbose_name=u'季度登录次数')
     year_times = models.IntegerField(default = 0, verbose_name=u'年登录次数')
-    recent_login = models.DateField(blank=True, null=True, verbose_name=u'最近登录时间')
+    recent_login = models.DateTimeField(blank=True, null=True, verbose_name=u'最近登录时间')
     # is_active = models.BooleanField(default=True)
     # last_login = models.DateTimeField(null=True)
     # date_joined = models.DateTimeField(null=True)
