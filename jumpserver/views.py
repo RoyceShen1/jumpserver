@@ -126,9 +126,9 @@ def index(request):
         # 一个月历史汇总
         date_li, date_str = getDaysByNum(30)
         date_month = repr(date_str)
-        active_user_per_month = str(get_count_by_day(date_li, 'user'))
-        active_asset_per_month = str(get_count_by_day(date_li, 'asset'))
-        active_login_per_month = str(get_count_by_day(date_li, 'login'))
+        active_user_per_month = [Log.objects.filter(start_time__startswith=d).values('user').distinct().count() for d in date_li]
+        active_asset_per_month = [Log.objects.filter(start_time__startswith=d).values('host').distinct().count() for d in date_li]
+        active_login_per_month = [Log.objects.filter(start_time__startswith=d).count() for d in date_li]
 
         # 活跃用户资产图
         active_user_month = get_count_by_date(date_li, 'user')
