@@ -208,7 +208,7 @@ def perm_rule_edit(request):
                 asset_no_push = get_role_push_host(role=role)[1]  # 获取某角色已经推送的资产
                 need_push_asset.update(set(calc_assets) & set(asset_no_push))
                 if need_push_asset:
-                    raise ServerError(u'没有推送系统用户 %s 的主机 %s'
+                    raise ServerError(u'没有推送系统用户 %s 的主机 %s, 可选中推送规则框重新提交'
                                       % (role.name, ','.join([asset.hostname for asset in need_push_asset])))
 
                 # 仅授权成功的，写回数据库(授权规则,用户,用户组,资产,资产组,用户角色)
