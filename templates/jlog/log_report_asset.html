@@ -119,7 +119,11 @@
                                         <td class="text-center">{{u.month_times}}</td>
                                         <td class="text-center">{{u.quarter_times}}</td>
                                         <td class="text-center">{{u.year_times}}</td>
-                                        <td class="text-center">{{u.recent_login}}</td>
+                                        {% if u.recent_login %}
+                                            {{u.recent_login|date:"Y-m-d H:i:s"}}
+                                        {% else %}
+                                            ----
+                                        {% endif %}
                                     </tr>
                                     {% endfor %}
 <!--                                     {% for u in users_report %}
