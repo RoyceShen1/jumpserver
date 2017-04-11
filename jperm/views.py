@@ -168,6 +168,8 @@ def perm_rule_edit(request):
     rule_id = request.GET.get("id")
     rule = get_object(PermRule, id=rule_id)
 
+    user = request.user
+
     # 渲染数据, 获取所选的rule对象
 
     users = User.objects.all()
@@ -185,6 +187,7 @@ def perm_rule_edit(request):
         assets_select = request.POST.getlist('asset', [])
         asset_groups_select = request.POST.getlist('asset_group', [])
         roles_select = request.POST.getlist('role', [])
+        push = request.POST.get('push','')
 
         try:
             if not rule_name or not roles_select:
@@ -208,8 +211,16 @@ def perm_rule_edit(request):
                 asset_no_push = get_role_push_host(role=role)[1]  # 获取某角色已经推送的资产
                 need_push_asset.update(set(calc_assets) & set(asset_no_push))
                 if need_push_asset:
-                    raise ServerError(u'没有推送系统用户 %s 的主机 %s, 可选中推送规则框重新提交'
-                                      % (role.name, ','.join([asset.hostname for asset in need_push_asset])))
+                    if push:
+                        push_task = {}
+                        push_task['assets'] = [asset.id for asset in need_push_asset]
+                        push_task['asset_groups'] = []
+                        push_task['use_password'] = ''
+                        push_task['use_publicKey'] = u'1'
+                        task_ansible_role_push(user,push_task,role)
+                    else:
+                        raise ServerError(u'没有推送系统用户 %s 的主机 %s, 可选中推送规则框重新提交'
+                                          % (role.name, ','.join([asset.hostname for asset in need_push_asset])))
 
                 # 仅授权成功的，写回数据库(授权规则,用户,用户组,资产,资产组,用户角色)
                 rule.user = users_obj
