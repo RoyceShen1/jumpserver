@@ -130,11 +130,14 @@ def index(request):
         active_asset_per_month = [Log.objects.filter(start_time__startswith=d).values('host').distinct().count() for d in date_li]
         active_login_per_month = [Log.objects.filter(start_time__startswith=d).count() for d in date_li]
 
+        date_to = datetime.datetime.now()
+        date_from = date_to - datetime.timedelta(days=30)
+
         # 活跃用户资产图
-        active_user_month = get_count_by_date(date_li, 'user')
+        active_user_month = Log.objects.filter(start_time__range=(date_from,date_to)).values('user').distinct().count()
         disabled_user_count = len(users.filter(is_active=False))
         inactive_user_month = len(users) - active_user_month
-        active_asset_month = get_count_by_date(date_li, 'asset')
+        active_asset_month = Log.objects.filter(start_time__range=(date_from,date_to)).values('host').distinct().count()
         disabled_asset_count = len(hosts.filter(is_active=False)) if hosts.filter(is_active=False) else 0
         inactive_asset_month = len(hosts) - active_asset_month if len(hosts) > active_asset_month else 0
 
