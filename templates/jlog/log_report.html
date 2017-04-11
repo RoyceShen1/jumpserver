@@ -106,6 +106,7 @@
                                         {% else %}
                                         <th class="text-center"> <a href="?year=1">年登录次数</a> </th>
                                         {% endif %}
+                                        <th class="text-center"> 最后登录时间 </th>
 <!--                                         <th class="text-center"> 月登录次数 </th>
                                         <th class="text-center"> 季登录次数 </th>
                                         <th class="text-center"> 年登录次数 </th> -->
@@ -119,6 +120,7 @@
                                         <td class="text-center">{{u.month_times}}</td>
                                         <td class="text-center">{{u.quarter_times}}</td>
                                         <td class="text-center">{{u.year_times}}</td>
+                                        <td class="text-center">{{u.recent_login}}</td>
                                     </tr>
                                     {% endfor %}
 <!--                                 {% for log in contacts %}
