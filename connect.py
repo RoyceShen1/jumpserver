@@ -200,6 +200,9 @@ class Tty(object):
         u = self.user
         u.recent_login = datetime.datetime.now()
         u.save()
+        a = Asset.objects.get(hostname = self.asset_name)
+        a.recent_login = datetime.datetime.now()
+        a.save()
         if self.login_type == 'web':
             log.pid = log.id  # 设置log id为websocket的id, 然后kill时干掉websocket
             log.save()
