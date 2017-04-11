@@ -427,7 +427,31 @@ def log_report_asset(request):
     user = request.user
     header_title, path1 = u'审计', u'统计报表'
 
-    assets = Asset.objects.all()
+    week = request.GET.get('week','')
+    month = request.GET.get('month','')
+    quarter = request.GET.get('quarter','')
+    year = request.GET.get('year','')
+
+    if week == '1':
+        assets = Asset.objects.all().order_by('-week_times')
+    elif week == '0':
+        assets = Asset.objects.all().order_by('week_times')
+    if month == '1':
+        assets = Asset.objects.all().order_by('-month_times')
+    elif month == '0':
+        assets = Asset.objects.all().order_by('month_times')
+    if quarter == '1':
+        assets = Asset.objects.all().order_by('-quarter_times')
+    elif quarter == '0':
+        assets = Asset.objects.all().order_by('quarter_times')
+    if year == '1':
+        assets = Asset.objects.all().order_by('-year_times')
+    elif year == '0':
+        assets = Asset.objects.all().order_by('year_times')
+    
+    if not week and not month and not quarter and not year:
+        week = '1'
+        assets = Asset.objects.all().order_by('-week_times')
 
     assets_list, p, assets, page_range, current_page, show_first, show_end = pages(assets, request)
 
