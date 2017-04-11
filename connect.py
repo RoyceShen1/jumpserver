@@ -197,6 +197,9 @@ class Tty(object):
         log = Log(user=self.username, name=self.user.name, host=self.asset_name, remote_ip=self.remote_ip, login_type=self.login_type,
                   log_path=log_file_path, start_time=date_today, pid=pid)
         log.save()
+        u = self.user
+        u.recent_login = datetime.datetime.now()
+        u.save()
         if self.login_type == 'web':
             log.pid = log.id  # 设置log id为websocket的id, 然后kill时干掉websocket
             log.save()
