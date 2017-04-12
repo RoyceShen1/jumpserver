@@ -657,14 +657,14 @@ class Nav(object):
             try:
                 print "进入批量上传模式"
                 print "请输入主机名或ansible支持的pattern, 多个主机:分隔 q退出"
+                assets = self.user_perm.get('asset').keys()
+                print "授权包含该系统用户的所有主机"
+                for asset in assets:
+                    print ' %s' % asset.hostname
                 pattern = raw_input("\033[1;32mPattern>:\033[0m ").strip()
                 if pattern == 'q':
                     break
                 else:
-                    assets = self.user_perm.get('asset').keys()
-                    print "授权包含该系统用户的所有主机"
-                    for asset in assets:
-                        print ' %s' % asset.hostname
                     res = gen_resource({'user': self.user, 'asset': assets}, perm=self.user_perm)
                     runner = MyRunner(res)
                     asset_name_str = ''
@@ -711,14 +711,14 @@ class Nav(object):
             try:
                 print "进入批量下载模式"
                 print "请输入主机名或ansible支持的pattern, 多个主机:分隔,q退出"
+                assets = self.user_perm.get('asset').keys()
+                print "授权包含该系统用户的所有主机"
+                for asset in assets:
+                    print ' %s' % asset.hostname
                 pattern = raw_input("\033[1;32mPattern>:\033[0m ").strip()
                 if pattern == 'q':
                     break
                 else:
-                    assets = self.user_perm.get('asset').keys()
-                    print "授权包含该系统用户的所有主机"
-                    for asset in assets:
-                        print ' %s' % asset.hostname
                     res = gen_resource({'user': self.user, 'asset': assets}, perm=self.user_perm)
                     runner = MyRunner(res)
                     asset_name_str = ''
