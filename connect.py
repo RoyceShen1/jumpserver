@@ -662,6 +662,9 @@ class Nav(object):
                     break
                 else:
                     assets = self.user_perm.get('asset').keys()
+                    print "授权包含该系统用户的所有主机"
+                    for asset in assets:
+                        print ' %s' % asset.hostname
                     res = gen_resource({'user': self.user, 'asset': assets}, perm=self.user_perm)
                     runner = MyRunner(res)
                     asset_name_str = ''
@@ -713,6 +716,9 @@ class Nav(object):
                     break
                 else:
                     assets = self.user_perm.get('asset').keys()
+                    print "授权包含该系统用户的所有主机"
+                    for asset in assets:
+                        print ' %s' % asset.hostname
                     res = gen_resource({'user': self.user, 'asset': assets}, perm=self.user_perm)
                     runner = MyRunner(res)
                     asset_name_str = ''
