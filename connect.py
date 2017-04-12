@@ -656,11 +656,14 @@ class Nav(object):
         while True:
             try:
                 print "进入批量上传模式"
-                print "请输入主机名或ansible支持的pattern, 多个主机:分隔 q退出"
-                assets = self.user_perm.get('asset').keys()
+                print
                 print "授权包含该系统用户的所有主机"
                 for asset in assets:
                     print ' %s' % asset.hostname
+                print
+                print "请输入主机名或ansible支持的pattern, 多个主机:分隔 q退出"
+                print
+                assets = self.user_perm.get('asset').keys()
                 pattern = raw_input("\033[1;32mPattern>:\033[0m ").strip()
                 if pattern == 'q':
                     break
@@ -710,11 +713,14 @@ class Nav(object):
         while True:
             try:
                 print "进入批量下载模式"
-                print "请输入主机名或ansible支持的pattern, 多个主机:分隔,q退出"
-                assets = self.user_perm.get('asset').keys()
+                print
                 print "授权包含该系统用户的所有主机"
                 for asset in assets:
                     print ' %s' % asset.hostname
+                print
+                print "请输入主机名或ansible支持的pattern, 多个主机:分隔,q退出"
+                print
+                assets = self.user_perm.get('asset').keys()
                 pattern = raw_input("\033[1;32mPattern>:\033[0m ").strip()
                 if pattern == 'q':
                     break
