@@ -394,7 +394,7 @@ def download(request):
         res = gen_resource({'user': user, 'asset': asset_select})
         runner = MyRunner(res)
         runner.run('fetch', module_args='src=%s dest=%s' % (file_path, upload_dir), pattern='*')
-        FileLog(user=request.user.username,name=request.user.name host=' '.join([asset.hostname for asset in asset_select]),
+        FileLog(user=request.user.username, name=request.user.name, host=' '.join([asset.hostname for asset in asset_select]),
                 filename=file_path, type='download', remote_ip=remote_ip, result=runner.results).save()
         logger.debug(runner.results)
         tmp_dir_name = os.path.basename(upload_dir)
