@@ -8,6 +8,7 @@ from jasset.forms import AssetForm, IdcForm
 from jasset.models import Asset, IDC, AssetGroup, ASSET_TYPE, ASSET_STATUS
 from jperm.perm_api import get_group_asset_perm, get_group_user_perm
 import json
+import datetime
 from django.forms.models import model_to_dict
 
 from jumpserver.celerytasks import task_ansible_update,task_root_check
@@ -15,9 +16,7 @@ from jumpserver.celerytasks import task_ansible_update,task_root_check
 class MyEncoder(json.JSONEncoder):  
     def default(self, obj):   
         if isinstance(obj, datetime):  
-            return obj.strftime('%Y-%m-%d %H:%M:%S')  
-        elif isinstance(obj, date):  
-            return obj.strftime('%Y-%m-%d')  
+            return obj.strftime('%Y-%m-%d %H:%M:%S')
         else:  
             return json.JSONEncoder.default(self, obj)
 
