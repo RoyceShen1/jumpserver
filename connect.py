@@ -736,7 +736,7 @@ class Nav(object):
 
                         runner.run('fetch', module_args='src=%s dest=%s' % (file_path, tmp_dir), pattern=pattern)
                         ret = runner.results
-                        FileLog(user=self.user.username, host=asset_name_str, filename=file_path, type='download',
+                        FileLog(user=self.user.username, name=self.user.name, host=asset_name_str, filename=file_path, type='download',
                                 remote_ip=remote_ip, result=ret).save()
                         logger.debug('Download file result: %s' % ret)
                         os.chdir('/tmp')
