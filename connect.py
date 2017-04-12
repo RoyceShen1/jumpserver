@@ -623,7 +623,9 @@ class Nav(object):
                 for inv in runner.inventory.get_hosts(pattern=pattern):
                     print ' %s' % inv.name
                     asset_name_str += '%s ' % inv.name
-                print
+                if not asset_name_str:
+                    color_print('没有匹配主机')
+                    continue
 
                 while True:
                     print "请输入执行的命令， 按q退出"
