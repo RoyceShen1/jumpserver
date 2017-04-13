@@ -420,6 +420,9 @@ def log_report(request):
 
     users_list, p, users, page_range, current_page, show_first, show_end = pages(users, request)
 
+    contact_list = users_list
+    contacts = users
+
     return my_render('jlog/log_report.html', locals(), request)
 
 def log_report_asset(request):
@@ -454,5 +457,8 @@ def log_report_asset(request):
         assets = Asset.objects.all().order_by('-week_times')
 
     assets_list, p, assets, page_range, current_page, show_first, show_end = pages(assets, request)
+
+    contact_list = assets_list
+    contacts = assets
 
     return my_render("jlog/log_report_asset.html", locals(), request)
