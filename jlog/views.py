@@ -396,6 +396,7 @@ def log_report(request):
     month = request.GET.get('month','')
     quarter = request.GET.get('quarter','')
     year = request.GET.get('year','')
+    search_content = request.GET.get('search_content','')
 
     if week == '1':
         users = User.objects.all().order_by('-week_times')
@@ -418,6 +419,9 @@ def log_report(request):
         week = '1'
         users = User.objects.all().order_by('-week_times')
 
+    if search_content:
+        users = users.filter(Q(username__contains=search_content)|Q(name__contains=search_content))
+
     users_list, p, users, page_range, current_page, show_first, show_end = pages(users, request)
 
     contact_list = users_list
@@ -434,6 +438,7 @@ def log_report_asset(request):
     month = request.GET.get('month','')
     quarter = request.GET.get('quarter','')
     year = request.GET.get('year','')
+    search_content = request.GET.get('search_content','')
 
     if week == '1':
         assets = Asset.objects.all().order_by('-week_times')
@@ -455,6 +460,9 @@ def log_report_asset(request):
     if not week and not month and not quarter and not year:
         week = '1'
         assets = Asset.objects.all().order_by('-week_times')
+
+    if search_content:
+        assets = assets.filter(Q(hostname__contains=search_content)|Q(ip__contains=search_content))
 
     assets_list, p, assets, page_range, current_page, show_first, show_end = pages(assets, request)
 
