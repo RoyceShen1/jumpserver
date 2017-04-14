@@ -736,38 +736,76 @@ class Nav(object):
                         color_print('没有匹配主机')
                         continue
                     print
-                    while True:
-                        tmp_dir = get_tmp_dir()
-                        logger.debug('Download tmp dir: %s' % tmp_dir)
-                        print "请输入文件路径(不支持目录)"
-                        file_path = raw_input("\033[1;32mPath>:\033[0m ").strip()
-                        if file_path == 'q':
-                            break
+                    if len(runner.inventory.get_hosts(pattern=pattern)) == 1:
+                        color_print('单机模式','green')
+                        while True:
+                            time.sleep(0.1)
+                            print "请输入文件路径(不支持目录)"
+                            file_path = raw_input("\033[1;32mPath>:\033[0m ").strip()
+                            if file_path == 'q':
+                                break
 
-                        if not file_path:
-                            color_print("文件路径为空")
-                            continue
+                            if not file_path:
+                                color_print("文件路径为空")
+                                continue
 
-                        runner.run('fetch', module_args='src=%s dest=%s' % (file_path, tmp_dir), pattern=pattern)
-                        ret = runner.results
-                        FileLog(user=self.user.username, name=self.user.name, host=asset_name_str, filename=file_path, type='download',
-                                remote_ip=remote_ip, result=ret).save()
-                        logger.debug('Download file result: %s' % ret)
-                        os.chdir('/tmp')
-                        tmp_dir_name = os.path.basename(tmp_dir)
-                        if not os.listdir(tmp_dir):
-                            color_print('下载全部失败')
-                            continue
-                        bash('tar czf %s.tar.gz %s && sz %s.tar.gz' % (tmp_dir, tmp_dir_name, tmp_dir))
+                            tmp_dir = get_tmp_dir()
+                            logger.debug('Download tmp dir: %s' % tmp_dir)
+                            runner.run('fetch', module_args='src=%s dest=%s/ flat=yes' % (file_path, tmp_dir), pattern=pattern)
+                            ret = runner.results
+                            FileLog(user=self.user.username, name=self.user.name, host=asset_name_str, filename=file_path, type='download',
+                                    remote_ip=remote_ip, result=ret).save()
+                            logger.debug('Download file result: %s' % ret)
+                            os.chdir('/tmp')
+                            tmp_dir_name = os.path.basename(tmp_dir)
+                            if not os.listdir(tmp_dir):
+                                color_print('下载全部失败')
+                                continue
+                            bash('tar czf %s.tar.gz %s && sz %s.tar.gz' % (tmp_dir, tmp_dir_name, tmp_dir))
 
-                        if ret.get('failed'):
-                            error = '文件名称: %s \n下载失败: [ %s ] \n下载成功 [ %s ]' % \
-                                    ('%s.tar.gz' % tmp_dir_name, ', '.join(ret.get('failed').keys()), ', '.join(ret.get('ok').keys()))
-                            color_print(error)
-                        else:
-                            msg = '文件名称: %s \n下载成功 [ %s ]' % ('%s.tar.gz' % tmp_dir_name, ', '.join(ret.get('ok').keys()))
-                            color_print(msg, 'green')
-                        print
+                            if ret.get('failed'):
+                                error = '文件名称: %s \n下载失败: [ %s ] \n下载成功 [ %s ]' % \
+                                        ('%s.tar.gz' % tmp_dir_name, ', '.join(ret.get('failed').keys()), ', '.join(ret.get('ok').keys()))
+                                color_print(error)
+                            else:
+                                msg = '文件名称: %s \n下载成功 [ %s ]' % ('%s.tar.gz' % tmp_dir_name, ', '.join(ret.get('ok').keys()))
+                                color_print(msg, 'green')
+                            print
+                    else:
+                        color_print('多主机模式','green')
+                        while True:
+                            time.sleep(0.1)
+                            print "请输入文件路径(不支持目录)"
+                            file_path = raw_input("\033[1;32mPath>:\033[0m ").strip()
+                            if file_path == 'q':
+                                break
+
+                            if not file_path:
+                                color_print("文件路径为空")
+                                continue
+
+                            tmp_dir = get_tmp_dir()
+                            logger.debug('Download tmp dir: %s' % tmp_dir)
+                            runner.run('fetch', module_args='src=%s dest=%s' % (file_path, tmp_dir), pattern=pattern)
+                            ret = runner.results
+                            FileLog(user=self.user.username, name=self.user.name, host=asset_name_str, filename=file_path, type='download',
+                                    remote_ip=remote_ip, result=ret).save()
+                            logger.debug('Download file result: %s' % ret)
+                            os.chdir('/tmp')
+                            tmp_dir_name = os.path.basename(tmp_dir)
+                            if not os.listdir(tmp_dir):
+                                color_print('下载全部失败')
+                                continue
+                            bash('tar czf %s.tar.gz %s && sz %s.tar.gz' % (tmp_dir, tmp_dir_name, tmp_dir))
+
+                            if ret.get('failed'):
+                                error = '文件名称: %s \n下载失败: [ %s ] \n下载成功 [ %s ]' % \
+                                        ('%s.tar.gz' % tmp_dir_name, ', '.join(ret.get('failed').keys()), ', '.join(ret.get('ok').keys()))
+                                color_print(error)
+                            else:
+                                msg = '文件名称: %s \n下载成功 [ %s ]' % ('%s.tar.gz' % tmp_dir_name, ', '.join(ret.get('ok').keys()))
+                                color_print(msg, 'green')
+                            print
             except IndexError:
                 pass
 
