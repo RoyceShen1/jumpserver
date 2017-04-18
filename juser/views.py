@@ -479,7 +479,7 @@ def regen_ssh_key(request):
     return HttpResponse('ssh密钥已生成, 请到仪表盘页面下载')
 
 
-# @require_role(role='user')
+@require_role(role='user')
 def down_key(request):
     if is_role_request(request, 'super'):
         uuid_r = request.GET.get('uuid', '')
