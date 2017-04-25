@@ -788,4 +788,5 @@ def relation_api(request):
     return HttpResponse(json.dumps(relationship), content_type = "application/json")
 
 def xenserver_list(request):
-    return HttpResponse("xenserver resource list")
+    header_title, path1, path2 = u'物理资产', u'Xenserver管理', u'物理资源'
+    return my_render('jasset/xenserver_list.html', locals(), request)
