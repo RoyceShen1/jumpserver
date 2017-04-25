@@ -34,12 +34,14 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                {% for x in xens %}
                                 <tr>
-                                    <td class="text-center">0.0.0.0</td>
-                                    <td class="text-center">312312</td>
-                                    <td class="text-center">312312321312</td>
-                                    <td class="text-center">3123123</td>
+                                    <td class="text-center">{{x.ip}}</td>
+                                    <td class="text-center">{{x.res_cpu}}</td>
+                                    <td class="text-center">{{x.res_mem}}</td>
+                                    <td class="text-center">{{x.res_disk}}</td>
                                 </tr>
+                                {% endfor %}
                             </tbody>
                         </table>
                     </div>
