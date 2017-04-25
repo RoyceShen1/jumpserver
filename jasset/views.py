@@ -790,6 +790,6 @@ def relation_api(request):
 def xenserver_list(request):
     header_title, path1, path2 = u'物理资产', u'XenServer管理', u'物理资源'
 
-    xens = Asset.objects.filter(system_type__contains='XsenServer')
+    xens = Asset.objects.filter(system_type__contains='XenServer')
 
     return my_render('jasset/xenserver_list.html', locals(), request)
