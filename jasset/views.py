@@ -786,3 +786,6 @@ def relation_api(request):
 
 
     return HttpResponse(json.dumps(relationship), content_type = "application/json")
+
+def xenserver_list(request):
+    return HttpResponse("xenserver resource list")

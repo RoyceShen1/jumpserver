@@ -28,4 +28,5 @@ urlpatterns = patterns('',
     url(r'^asset/root_check/$', root_check, name='root_check'),
     url(r'^relation/list/$', relation_list, name='relation_list'),
     url(r'^relation/api/$', relation_api, name='relation_api'),
+    url(r'^xenserver/list/$', xenserver_list, name='xenserver_list'),
 )
