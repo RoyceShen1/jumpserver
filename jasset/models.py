@@ -96,6 +96,10 @@ class Asset(models.Model):
     quarter_times = models.IntegerField(default = 0, verbose_name=u'季度登录次数')
     year_times = models.IntegerField(default = 0, verbose_name=u'年登录次数')
     recent_login = models.DateTimeField(blank=True, null=True, verbose_name=u'最近登录时间') 
+    res_cpu = models.IntegerField(blank = True, null = True, verbose_name = u'物理机cpu核数')
+    res_mem = models.IntegerField(blank = True, null = True, verbose_name = u'物理机内存大小')
+    res_disk = models.IntegerField(blank = True, null = True, verbose_name = u'物理机硬盘大小')
+
 
     def __unicode__(self):
         return self.ip
