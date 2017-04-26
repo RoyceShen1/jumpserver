@@ -790,6 +790,19 @@ def relation_api(request):
 def xenserver_list(request):
     header_title, path1, path2 = u'物理资产', u'XenServer管理', u'物理资源'
 
+    group = request.GET.get('group',0)
     xens = Asset.objects.filter(system_type__contains='XenServer')
+    if group == '1':
+        xens = xens.filter(group__name__contains='二手房')
+    if group == '2':
+        xens = xens.filter(group__name__contains='新房')
+    if group == '3':
+        xens = xens.filter(group__name__contains='基础')
+    if group == '4':
+        xens = xens.filter(group__name__contains='流量')
+    if group == '5':
+        xens = xens.filter(group__name__contains='金融')
+    if group == '6':
+        xens = xens.filter(group__name__contains='DEVOPS')
 
     return my_render('jasset/xenserver_list.html', locals(), request)
