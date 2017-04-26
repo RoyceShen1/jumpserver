@@ -281,10 +281,13 @@ def get_cpu_core(cpu_info):
 
 @register.filter(name='get_used_cpu_core')
 def get_used_cpu_core(asset):
+    cpu_core = int(asset.cpu_info.split('* ')[1])
     vms = asset.virtual_machine.all()
     used_cpu_core = 0
     for vm in vms:
         used_cpu_core = used_cpu_core + int(vm.cpu.split(' ')[-1])
+    if used_cpu_core > cpu_core:
+        used_cpu_core = cpu_core
     return used_cpu_core
 
 @register.filter(name='get_used_mem')
