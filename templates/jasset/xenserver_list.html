@@ -71,20 +71,18 @@
                                     <th class="text-center">已使用CPU核数</th>
                                     <th class="text-center">已使用内存</th>
                                     <th class="text-center">已使用硬盘</th>
-                                    <th class="text-center">编辑</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {% for x in xens %}
                                 <tr>
                                     <td class="text-center">{{x.ip}}</td>
-                                    <td class="text-center">{{x.res_cpu}}</td>
-                                    <td class="text-center">{{x.res_mem}}</td>
-                                    <td class="text-center">{{x.res_disk}}</td>
+                                    <td class="text-center">{{x.res_cpu}}核</td>
+                                    <td class="text-center">{{x.res_mem}}G</td>
+                                    <td class="text-center">{{x.res_disk}}G</td>
                                     <td class="text-center">{{x|get_used_cpu_core}}核</td>
                                     <td class="text-center">{{x|get_used_mem}}G</td>
                                     <td class="text-center">{{x|get_used_disk}}G</td>
-                                    <td class="text-center"><a value={{x.id}} class="btn btn-xs btn-info edit">编辑</a></td>
                                 </tr>
                                 {% endfor %}
                             </tbody>
@@ -94,41 +92,6 @@
             </div>
         </div>
     </div>
-</div>
-
-<div id="modal-alert" class="iziModal">
-    <section>
-        <input class="input-sm" type="text" placeholder="总CPU核数">
-        <input class="input-sm" type="text" placeholder="总内存大小">
-        <input class="input-sm" type="text" placeholder="总硬盘大小">
-        <footer>
-            <button data-iziModal-close>取消</button>
-            <button class="submit">保存</button>            
-        </footer>
-    </section>
-<!--     <button data-iziModal-close class="icon-close"></button>
-    <header>
-        <a href="" id="signin">Sign in</a>
-        <a href="" class="active">New Account</a>
-    </header>
-    <section class="hide">
-        <input type="text" placeholder="Username">
-        <input type="password" placeholder="Password">
-        <footer>
-            <button data-iziModal-close>Cancel</button>
-            <button class="submit">Log in</button>            
-        </footer>
-    </section>
-    <section>
-        <input type="text" placeholder="Username">
-        <input type="text" placeholder="Email">
-        <input type="password" placeholder="Password">
-        <label for="check"><input type="checkbox" name="checkbox" id="check" value="1"> I agree to the <u>Terms</u>.</label>
-        <footer>
-            <button data-iziModal-close>Cancel</button>
-            <button class="submit">Create Account</button>            
-        </footer>
-    </section> -->
 </div>
 
 {% endblock %}
