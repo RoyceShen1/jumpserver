@@ -27,12 +27,36 @@
                         <label>
                             <select id="group" class="form-control m-b input-sm" onchange="change_info()">
                                 <option value="0">主机组</option>
-                                <option value="1">二手房</option>
-                                <option value="2">新房</option>
-                                <option value="3">基础</option>
-                                <option value="4">流量</option>
-                                <option value="5">金融</option>
-                                <option value="6">DevOps</option>
+                                {% if group=='1' %}
+                                    <option value="1" selected>二手房</option>
+                                {% else %}
+                                    <option value="1">二手房</option>
+                                {% endif %}
+                                {% if group=='2' %}
+                                    <option value="2" selected>新房</option>
+                                {% else %}
+                                    <option value="2">新房</option>
+                                {% endif %}
+                                {% if group=='3' %}
+                                    <option value="3" selected>基础</option>
+                                {% else %}
+                                    <option value="3">基础</option>
+                                {% endif %}
+                                {% if group=='4' %}
+                                    <option value="4" selected>流量</option>
+                                {% else %}
+                                    <option value="4">流量</option>
+                                {% endif %}
+                                {% if group=='5' %}
+                                    <option value="5" selected>金融</option>
+                                {% else %}
+                                    <option value="5">金融</option>
+                                {% endif %}
+                                {% if group=='6' %}
+                                    <option value="6" selected>DevOps</option>
+                                {% else %}
+                                    <option value="6">DevOps</option>
+                                {% endif %}
                             </select>
                         </label>
                     </div>
