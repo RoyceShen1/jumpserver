@@ -320,6 +320,7 @@ def get_used_disk(asset):
         for disk, size in disk_dic.items():
             vm_disk = vm_disk + size
         used_disk = used_disk + int(vm_disk)
+        used_disk = float(used_disk)/1000
     return used_disk
 
 @register.filter(name='user_perm_asset_num')
