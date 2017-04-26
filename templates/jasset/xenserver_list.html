@@ -71,6 +71,7 @@
                                     <th class="text-center">已使用CPU核数</th>
                                     <th class="text-center">已使用内存</th>
                                     <th class="text-center">已使用硬盘</th>
+                                    <th class="text-center">编辑</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -83,6 +84,7 @@
                                     <td class="text-center">{{x|get_used_cpu_core}}核</td>
                                     <td class="text-center">{{x|get_used_mem}}G</td>
                                     <td class="text-center">{{x|get_used_disk}}G</td>
+                                    <td class="text-center"><a href="#" class="btn btn-xs btn-info">编辑</a></td>
                                 </tr>
                                 {% endfor %}
                             </tbody>
