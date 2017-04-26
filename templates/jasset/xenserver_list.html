@@ -95,9 +95,8 @@
         </div>
     </div>
 </div>
-<div id="modal-default" class="iziModal">
-    hello world!
-</div>
+
+<div id="modal-alert" class="iziModal"></div>
 
 {% endblock %}
 
@@ -156,10 +155,21 @@
             window.location = "{% url 'xenserver_list' %}?group=" + args
         }
 
+        function modal_init(){
+            $("#modal-alert").iziModal({
+                title: "邮件发送成功",
+                iconClass: 'icon-check',
+                headerColor: '#5bbd72',
+                width: 600,
+                onClosed: function() {$('#modal-alert').iziModal('destroy');} 
+            });
+        }
 
         $('.edit').click(function(){
             id = $(this).attr('value')
             console.log(id)
+            modal_init()
+            $('#modal-alert').iziModal('open');
         })
 
     </script>
