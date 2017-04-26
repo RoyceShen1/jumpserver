@@ -281,7 +281,7 @@ def get_cpu_core(cpu_info):
 
 @register.filter(name='get_used_cpu_core')
 def get_used_cpu_core(asset):
-    cpu_core = int(asset.cpu_info.split('* ')[1])
+    cpu_core = int(asset.cpu.split('* ')[1])
     vms = asset.virtual_machine.all()
     used_cpu_core = 0
     for vm in vms:
