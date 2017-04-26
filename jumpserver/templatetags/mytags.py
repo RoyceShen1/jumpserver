@@ -310,6 +310,17 @@ def get_disk_info(disk_info):
         disk_size = disk_info
     return disk_size
 
+@register.filter(name='get_used_disk')
+def get_used_disk(asset):
+    vms = asset.virtual_machine.all()
+    used_disk = 0
+    for vm in vms:
+        vm_disk = 0
+        disk_dic = ast.literal_eval(vm.disk)
+        for disk, size in disk_dic.items():
+            vm_disk = vm_disk + size
+        used_disk = used_disk + int(vm_disk)
+    return used_disk
 
 @register.filter(name='user_perm_asset_num')
 def user_perm_asset_num(user_id):
