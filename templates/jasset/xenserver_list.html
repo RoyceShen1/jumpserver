@@ -124,5 +124,11 @@
     }
     </style>
     <script src="/static/js/term.js"></script>
+    <script type="text/javascript">
+        function change_info(){
+            var args = $("#group").val()
+            window.location = "{% url 'xenserver_list' %}?group=" + args
+        }
+    </script>
 
 {% endblock %}
