@@ -84,7 +84,7 @@
                                     <td class="text-center">{{x|get_used_cpu_core}}核</td>
                                     <td class="text-center">{{x|get_used_mem}}G</td>
                                     <td class="text-center">{{x|get_used_disk}}G</td>
-                                    <td class="text-center"><a href="#" class="btn btn-xs btn-info">编辑</a></td>
+                                    <td class="text-center"><a value={{x.id}} class="btn btn-xs btn-info edit">编辑</a></td>
                                 </tr>
                                 {% endfor %}
                             </tbody>
@@ -155,6 +155,12 @@
             var args = $("#group").val()
             window.location = "{% url 'xenserver_list' %}?group=" + args
         }
+
+        $('.edit').click(function(){
+            id = $(this).attr('value')
+            console.log(id)
+        }
+
     </script>
 
 {% endblock %}
