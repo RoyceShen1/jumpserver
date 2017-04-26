@@ -279,6 +279,9 @@ def get_cpu_core(cpu_info):
     cpu_core = cpu_info.split('* ')[1] if cpu_info and '*' in cpu_info else cpu_info
     return cpu_core
 
+@register.filter(name='get_used_cpu_core')
+def get_used_cpu_core(asset):
+    return asset.cpu
 
 @register.filter(name='get_disk_info')
 def get_disk_info(disk_info):
