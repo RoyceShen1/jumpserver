@@ -27,32 +27,32 @@
                         <label>
                             <select id="group" class="form-control m-b input-sm" onchange="change_info()">
                                 <option value="0">主机组</option>
-                                {% ifequal group=='1' %}
+                                {% ifequal group '1' %}
                                     <option value="1" selected>二手房</option>
                                 {% else %}
                                     <option value="1">二手房</option>
                                 {% endifequal %}
-                                {% ifequal group=='2' %}
+                                {% ifequal group '2' %}
                                     <option value="2" selected>新房</option>
                                 {% else %}
                                     <option value="2">新房</option>
                                 {% endifequal %}
-                                {% ifequal group=='3' %}
+                                {% ifequal group '3' %}
                                     <option value="3" selected>基础</option>
                                 {% else %}
                                     <option value="3">基础</option>
                                 {% endifequal %}
-                                {% ifequal group=='4' %}
+                                {% ifequal group '4' %}
                                     <option value="4" selected>流量</option>
                                 {% else %}
                                     <option value="4">流量</option>
                                 {% endifequal %}
-                                {% ifequal group=='5' %}
+                                {% ifequal group '5' %}
                                     <option value="5" selected>金融</option>
                                 {% else %}
                                     <option value="5">金融</option>
                                 {% endifequal %}
-                                {% ifequal group=='6' %}
+                                {% ifequal group '6' %}
                                     <option value="6" selected>DevOps</option>
                                 {% else %}
                                     <option value="6">DevOps</option>
