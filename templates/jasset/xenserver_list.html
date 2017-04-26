@@ -9,7 +9,7 @@
         <div class="col-sm-10">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5> XenServer物理机资源统计 </h5>
+                    <h5> XenServer物理机资源统计(包括XenServer本身) </h5>
                     <div class="ibox-tools">
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>
@@ -23,6 +23,15 @@
                     </div>
                 </div>
                 <div class="ibox-content">
+                    <div class="col-sm-7" style="padding-left: 0px">
+                        <label>
+                            <select name="idc" class="form-control m-b input-sm" onchange="change_info()">
+                                <option value="">主机组</option>
+                                <option value="">二手房</option>
+                                <option value="">新房</option>
+                            </select>
+                        </label>
+                    </div>
                     <div class="tab-content">
                         <table class="table table-striped table-bordered table-hover ">
                             <thead>
