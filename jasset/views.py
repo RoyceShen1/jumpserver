@@ -804,5 +804,6 @@ def xenserver_list(request):
         xens = xens.filter(group__name__contains='金融')
     if group == '6':
         xens = xens.filter(group__name__contains='DEVOPS')
+    xens = xens.distinct()
 
     return my_render('jasset/xenserver_list.html', locals(), request)
