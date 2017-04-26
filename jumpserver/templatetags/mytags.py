@@ -281,7 +281,19 @@ def get_cpu_core(cpu_info):
 
 @register.filter(name='get_used_cpu_core')
 def get_used_cpu_core(asset):
-    return asset.cpu
+    vms = asset.virtual_machine.all()
+    used_cpu_core = 0
+    for vm in vms:
+        used_cpu_core = used_cpu_core + int(vm.cpu.split(' ')[-1])
+    return used_cpu_core
+
+@register.filter(name='get_used_mem')
+def get_used_mem(asset):
+    vms = asset.virtual_machine.all()
+    used_mem = 0
+    for vm in vms:
+        used_mem = used_mem + int(vm.memory)
+    return used_mem
 
 @register.filter(name='get_disk_info')
 def get_disk_info(disk_info):
