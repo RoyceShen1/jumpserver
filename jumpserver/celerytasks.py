@@ -20,17 +20,20 @@ from jlog.models import SystemLog
 from jumpserver.api import CRYPTOR
 import paramiko
 
+from django.db import connection
 
 MAIL_FROM = EMAIL_HOST_USER
 
 @celery.task(name='task_mail')
 def task_mail(title,msg,mail_from,to):
+    connection.close()
 	send_mail(title, msg, mail_from, to, fail_silently=False)
 
 from jasset.asset_api import asset_ansible_update
 
 @celery.task(name='task_ansible_update')
 def task_ansible_update(user, asset_list, name):
+    connection.close()
 	result = asset_ansible_update(asset_list, name)
 	all_assets = []
 	for asset in asset_list:
@@ -50,6 +53,7 @@ from jperm.models import PermPush
 
 @celery.task(name='task_ansible_role_push')
 def task_ansible_role_push(user,push_task,role):
+    connection.close()
     asset_ids = push_task['assets']
     asset_group_ids = push_task['asset_groups']
     assets_obj = [Asset.objects.get(id=asset_id) for asset_id in asset_ids]
@@ -135,6 +139,7 @@ def task_ansible_role_push(user,push_task,role):
 
 @celery.task(name='task_root_check')
 def task_root_check(user):
+    connection.close()
     asset_result = root_all_check()
     if not asset_result['failed']:
         msg = u"root连通性检查全部通过"
