@@ -27,22 +27,22 @@ MAIL_FROM = EMAIL_HOST_USER
 @celery.task(name='task_mail')
 def task_mail(title,msg,mail_from,to):
     connection.close()
-	send_mail(title, msg, mail_from, to, fail_silently=False)
+    send_mail(title, msg, mail_from, to, fail_silently=False)
 
 from jasset.asset_api import asset_ansible_update
 
 @celery.task(name='task_ansible_update')
 def task_ansible_update(user, asset_list, name):
     connection.close()
-	result = asset_ansible_update(asset_list, name)
-	all_assets = []
-	for asset in asset_list:
-		all_assets.append(asset.hostname)
-	if not result:
-		msg = u"更新以下资产%s <br> 全部成功"%(','.join(all_assets))
-	else:
-		msg = u"更新以下资产%s <br> "%(','.join(all_assets)) + u"资产%s更新失败"%(','.join(result))
-	SystemLog.objects.create(user = user, log_type = 'ansible配置更新', info = msg)
+    result = asset_ansible_update(asset_list, name)
+    all_assets = []
+    for asset in asset_list:
+        all_assets.append(asset.hostname)
+    if not result:
+        msg = u"更新以下资产%s <br> 全部成功"%(','.join(all_assets))
+    else:
+        msg = u"更新以下资产%s <br> "%(','.join(all_assets)) + u"资产%s更新失败"%(','.join(result))
+    SystemLog.objects.create(user = user, log_type = 'ansible配置更新', info = msg)
 
 
 from jasset.models import Asset,AssetGroup
