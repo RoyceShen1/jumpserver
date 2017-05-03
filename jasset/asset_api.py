@@ -338,13 +338,14 @@ def get_ansible_asset_info(asset_ip, setup_info):
         for disk_name, disk_info in disk_all.iteritems():
             if disk_name.startswith('sd') or disk_name.startswith('hd') or disk_name.startswith('vd') or disk_name.startswith('xvd'):
                 disk_size = disk_info.get("size", '')
-                print disk_name, disk_size
                 if 'M' in disk_size:
                     disk_format = round(float(disk_size[:-2]) / 1000, 0)
                 elif 'T' in disk_size:
                     disk_format = round(float(disk_size[:-2]) * 1000, 0)
-                else:
-                    disk_format = float(disk_size[:-2])
+                elif 'G' in disk_size:
+                    disk_format = round(float(disk_size[:-2]))
+                elif 'Bytes' in disk_size:
+                    disk_format = 0
                 disk_need[disk_name] = disk_format
     all_ip = setup_info.get("ansible_all_ipv4_addresses")
     other_ip_list = all_ip.remove(asset_ip) if asset_ip in all_ip else []
