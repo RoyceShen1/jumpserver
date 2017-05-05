@@ -23,7 +23,7 @@
                     </div>
                 </div>
                 <div class="ibox-content">
-                    <div class="col-sm-7" style="padding-left: 0px">
+<!--                     <div class="col-sm-7" style="padding-left: 0px">
                         <label>
                             <select id="group" class="form-control m-b input-sm" onchange="change_info()">
                                 <option value="0">主机组</option>
@@ -59,11 +59,11 @@
                                 {% endifequal %}
                             </select>
                         </label>
-                    </div>
+                    </div> -->
                     <div class="tab-content">
                         <table class="table table-striped table-bordered table-hover ">
                             <thead>
-                                <tr>
+<!--                                 <tr>
                                     <th class="text-center">IP</th>
                                     <th class="text-center">总CPU核数</th>
                                     <th class="text-center">总内存</th>
@@ -71,10 +71,10 @@
                                     <th class="text-center">已使用CPU核数</th>
                                     <th class="text-center">已使用内存</th>
                                     <th class="text-center">已使用硬盘</th>
-                                </tr>
+                                </tr> -->
                             </thead>
                             <tbody>
-                                {% for x in xens %}
+<!--                                 {% for x in xens %}
                                 <tr>
                                     <td class="text-center">{{x.ip}}</td>
                                     <td class="text-center">{{x.res_cpu}}核</td>
@@ -85,7 +85,7 @@
                                     <td class="text-center">{{x|get_used_disk}}G</td>
                                 </tr>
                                 {% endfor %}
-                            </tbody>
+ -->                            </tbody>
                         </table>
                     </div>
                 </div>
