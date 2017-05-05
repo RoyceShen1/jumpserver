@@ -176,6 +176,7 @@
                 type: "get",
                 url: "{% url 'xenserver_api' %}",
                 success: function (ret) {
+                    console.log(ret)
                     html = ""
                     for(j=0;j<ret.length;j++){
                         html += "<tr>"
