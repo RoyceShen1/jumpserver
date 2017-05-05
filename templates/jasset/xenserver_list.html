@@ -64,27 +64,19 @@
                         <table class="table table-striped table-bordered table-hover ">
                             <thead>
                                 <tr>
-                                    <th class="text-center" colspan="1">IP</th>
-                                    <th class="text-center" colspan="3">总量</th>
-                                    <th class="text-center" colspan="3">已使用</th>
-                                    <th class="text-center" colspan="3">剩余</th>
+                                    <th class="text-center">IP</th>
+                                    <th class="text-center">总CPU核数</th>
+                                    <th class="text-center">总内存</th>
+                                    <th class="text-center">总硬盘</th>
+                                    <th class="text-center">已使用CPU核数</th>
+                                    <th class="text-center">已使用内存</th>
+                                    <th class="text-center">已使用硬盘</th>
+                                    <th class="text-center">剩余CPU核数</th>
+                                    <th class="text-center">剩余内存</th>
+                                    <th class="text-center">剩余硬盘</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="text-center">IP</td>
-                                    <td class="text-center">总CPU核数</td>
-                                    <td class="text-center">总内存</td>
-                                    <td class="text-center">总硬盘</td>
-                                    <td class="text-center">已使用CPU核数</td>
-                                    <td class="text-center">已使用内存</td>
-                                    <td class="text-center">已使用硬盘</td>
-                                    <td class="text-center">剩余CPU核数</td>
-                                    <td class="text-center">剩余内存</td>
-                                    <td class="text-center">剩余硬盘</td>
-                                </tr>
-                            </tbody>
-                            <tbody>
+                            <tbody id="table-content">
 <!--                                 {% for x in xens %}
                                 <tr>
                                     <td class="text-center">{{x.ip}}</td>
@@ -95,8 +87,8 @@
                                     <td class="text-center">{{x|get_used_mem}}G</td>
                                     <td class="text-center">{{x|get_used_disk}}G</td>
                                 </tr>
-                                {% endfor %}
- -->                            </tbody>
+                                {% endfor %} -->
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -178,6 +170,30 @@
             modal_init()
             $('#modal-alert').iziModal('open');
         })
+
+        function xenserver_info_get(){
+            $.ajax({
+                type: "get",
+                url: "{% url 'xenserver_api' %}",
+                success: function (ret) {
+                    html = ""
+                    for(j=0;j<ret.length;j++){
+                        html += "<tr>"
+                        html += "<td class='text-center'>" + ret[j].ip + "</td>"
+                        html += "<td class='text-center'>" + ret[j].cpu_all + "</td>"
+                        html += "<td class='text-center'>" + ret[j].mem_all + "</td>"
+                        html += "<td class='text-center'>" + ret[j].disk_all + "</td>"
+                        html += "<td class='text-center'>" + ret[j].cpu_used + "</td>"
+                        html += "<td class='text-center'>" + ret[j].mem_used + "</td>"
+                        html += "<td class='text-center'>" + ret[j].disk_used + "</td>"
+                        html += "<td class='text-center'>" + ret[j].cpu_rest + "</td>"
+                        html += "<td class='text-center'>" + ret[j].mem_rest + "</td>"
+                        html += "<td class='text-center'>" + ret[j].disk_rest + "</td>"
+                        html += "</tr>"
+                    }
+                    $('#table-content').html(html)
+                }
+        }
 
     </script>
 
