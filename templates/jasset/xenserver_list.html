@@ -172,7 +172,6 @@
         })
 
         function xenserver_info_get(){
-            console.log("test")
             $.ajax({
                 type: "get",
                 url: "{% url 'xenserver_api' %}",
@@ -196,6 +195,7 @@
                 }
         }
 
+        console.log("test")
         xenserver_info_get()
 
     </script>
