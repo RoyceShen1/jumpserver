@@ -129,7 +129,8 @@
     <script src="/static/js/term.js"></script>
     <script type="text/javascript">
         function change_info(){
-            xenserver_info_get(1)
+            order = $('#group').val()
+            xenserver_info_get(order)
         }
 
         function cmp_cpu_all(a,b){
@@ -156,8 +157,8 @@
         function cmp_disk_used(a,b){
             return a.disk_used - b.disk_used
         }
-        function cmp_disk_used(a,b){
-            return a.disk_used - b.disk_rest
+        function cmp_disk_rest(a,b){
+            return a.disk_rest - b.disk_rest
         }
 
         function xenserver_info_get(order){
@@ -167,6 +168,30 @@
                 success: function (ret) {
                     if(order==1){
                         ret.sort(cmp_cpu_all)
+                    }
+                    if(order==2){
+                        ret.sort(cmp_cpu_used)
+                    }
+                    if(order==3){
+                        ret.sort(cmp_cpu_rest)
+                    }
+                    if(order==4){
+                        ret.sort(cmp_mem_all)
+                    }
+                    if(order==5){
+                        ret.sort(cmp_mem_used)
+                    }
+                    if(order==6){
+                        ret.sort(cmp_mem_rest)
+                    }
+                    if(order==7){
+                        ret.sort(cmp_disk_all)
+                    }
+                    if(order==8){
+                        ret.sort(cmp_disk_used)
+                    }
+                    if(order==9){
+                        ret.sort(cmp_disk_rest)
                     }
                     console.log(ret)
                     html = ""
