@@ -29,4 +29,5 @@ urlpatterns = patterns('',
     url(r'^relation/list/$', relation_list, name='relation_list'),
     url(r'^relation/api/$', relation_api, name='relation_api'),
     url(r'^xenserver/list/$', xenserver_list, name='xenserver_list'),
+    url(r'^xenserver/api/$', xenserver_api, name='xenserver_api'),
 )

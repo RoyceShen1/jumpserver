@@ -807,3 +807,44 @@ def xenserver_list(request):
     xens = xens.distinct()
 
     return my_render('jasset/xenserver_list.html', locals(), request)
+
+def xenserver_api(request):
+
+    xens = Asset.objects.filter(Q(system_type__contains='XenServer')&~Q(group__name__contains='it'))
+
+    xen_info_list = []
+    for xen in xens:
+        xen_info_dict = {}
+        xen_info_dict['ip'] = xen.ip
+        xen_info_dict['cpu_all'] = xen.res_cpu
+        xen_info_dict['mem_all'] = xen.res_mem
+        xen_info_dict['disk_all'] = xen.res_disk
+
+        vms = xen.virtual_machine.all()
+        used_cpu_core = 0
+        for vm in vms:
+            used_cpu_core = used_cpu_core + int(vm.cpu.split(' ')[-1])
+
+        xen_info_dict['cpu_used'] = used_cpu_core
+
+        used_mem = 0
+        for vm in vms:
+            used_mem = used_mem + int(vm.memory)
+
+        xen_info_dict['mem_used'] = used_mem
+
+        used_disk = 0
+        for vm in vms:
+            vm_disk = 0
+            disk_dic = ast.literal_eval(vm.disk)
+            for disk, size in disk_dic.items():
+                vm_disk = vm_disk + size
+            used_disk = used_disk + int(vm_disk)
+
+        xen_info_dict['disk_used'] = used_disk
+
+        xen_info_dict['cpu_rest'] = xen_info_dict['cpu_all'] - xen_info_dict['cpu_used']
+        xen_info_dict['mem_rest'] = xen_info_dict['mem_all'] - xen_info_dict['mem_used']
+        xen_info_dict['disk_rest'] = xen_info_dict['disk_all'] - xen_info_dict['disk_used']
+
+        xen_info_list.append(xen_info_dict)
