@@ -189,11 +189,38 @@
                         else{
                             html += "<td class='text-center'>" + ret[j].cpu_used + "</td>"
                         }
-                        html += "<td class='text-center'>" + ret[j].mem_used + "</td>"
-                        html += "<td class='text-center'>" + ret[j].disk_used + "</td>"
-                        html += "<td class='text-center'>" + ret[j].cpu_rest + "</td>"
-                        html += "<td class='text-center'>" + ret[j].mem_rest + "</td>"
-                        html += "<td class='text-center'>" + ret[j].disk_rest + "</td>"
+                        if(ret[j].mem_used/ret[j].mem_all > 0.8){
+                            html += "<td class='text-center' style='color:red;'>" + ret[j].mem_used + "</td>"
+                        }
+                        else{
+                            html += "<td class='text-center'>" + ret[j].mem_used + "</td>"
+                        }
+                        if(ret[j].disk_used/ret[j].disk_all > 0.8){
+                            html += "<td class='text-center'> style='color:red;'" + ret[j].disk_used + "</td>"
+                        }
+                        else{
+                            html += "<td class='text-center'>" + ret[j].disk_used + "</td>"
+                        }
+
+                        if(ret[j].cpu_used/ret[j].cpu_all > 0.8){
+                            html += "<td class='text-center' style='color:red;'>" + ret[j].cpu_rest + "</td>"
+                        }
+                        else{
+                            html += "<td class='text-center'>" + ret[j].cpu_rest + "</td>"
+                        }
+                        if(ret[j].mem_used/ret[j].mem_all > 0.8){
+                            html += "<td class='text-center' style='color:red;'>" + ret[j].mem_rest + "</td>"
+                        }
+                        else{
+                            html += "<td class='text-center'>" + ret[j].mem_rest + "</td>"
+                        }
+                        if(ret[j].disk_used/ret[j].disk_all > 0.8){
+                            html += "<td class='text-center'> style='color:red;'" + ret[j].disk_rest + "</td>"
+                        }
+                        else{
+                            html += "<td class='text-center'>" + ret[j].disk_rest + "</td>"
+                        }
+
                         html += "</tr>"
                     }
                     $('#table-content').html(html)
