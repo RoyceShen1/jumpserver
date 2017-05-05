@@ -183,6 +183,12 @@
                         html += "<td class='text-center'>" + ret[j].cpu_all + "</td>"
                         html += "<td class='text-center'>" + ret[j].mem_all + "</td>"
                         html += "<td class='text-center'>" + ret[j].disk_all + "</td>"
+                        if(ret[j].cpu_used/ret[j].cpu_all > 0.8){
+                            console.log(0)
+                        }
+                        else{
+                            console.log(1)
+                        }
                         html += "<td class='text-center'>" + ret[j].cpu_used + "</td>"
                         html += "<td class='text-center'>" + ret[j].mem_used + "</td>"
                         html += "<td class='text-center'>" + ret[j].disk_used + "</td>"
