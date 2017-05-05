@@ -129,14 +129,45 @@
     <script src="/static/js/term.js"></script>
     <script type="text/javascript">
         function change_info(){
-            console.log('change')
+            xenserver_info_get(1)
         }
 
-        function xenserver_info_get(){
+        function cmp_cpu_all(a,b){
+            return a.cpu_all - b.cpu_all
+        }
+        function cmp_cpu_used(a,b){
+            return a.cpu_used - b.cpu_used
+        }
+        function cmp_cpu_rest(a,b){
+            return a.cpu_rest - b.cpu_rest
+        }
+        function cmp_mem_all(a,b){
+            return a.mem_all - b.mem_all
+        }
+        function cmp_mem_used(a,b){
+            return a.mem_used - b.mem_used
+        }
+        function cmp_mem_rest(a,b){
+            return a.mem_rest - b.mem_rest
+        }
+        function cmp_disk_all(a,b){
+            return a.disk_all - b.disk_all
+        }
+        function cmp_disk_used(a,b){
+            return a.disk_used - b.disk_used
+        }
+        function cmp_disk_used(a,b){
+            return a.disk_used - b.disk_rest
+        }
+
+        function xenserver_info_get(order){
             $.ajax({
                 type: "get",
                 url: "{% url 'xenserver_api' %}",
                 success: function (ret) {
+                    if(order==1){
+                        ret.sort(cmp_cpu_all)
+                    }
                     console.log(ret)
                     html = ""
                     for(j=0;j<ret.length;j++){
@@ -190,7 +221,7 @@
             })
         }
 
-        xenserver_info_get()
+        xenserver_info_get(0)
 
     </script>
 
