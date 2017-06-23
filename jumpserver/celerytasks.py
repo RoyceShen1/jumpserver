@@ -10,12 +10,12 @@ import os,sys
 celery = Celery('tasks')
 celery.config_from_object(celeryconfig)
 
+sys.path.append('../')
 os.environ["DJANGO_SETTINGS_MODULE"] = 'jumpserver.settings'
 
 from django.db.models import Q
 from django.core.mail import send_mail
 
-sys.path.append('../')
 from jumpserver.settings import EMAIL_HOST_USER
 from jlog.models import SystemLog
 
