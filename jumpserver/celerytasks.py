@@ -6,6 +6,7 @@ from celery import Celery
 
 import os,sys
 
+from django.db.models import Q
 from django.core.mail import send_mail
 
 celery = Celery('tasks')
@@ -149,7 +150,7 @@ def task_root_check(user):
 
 def root_all_check():
     print '开始检查资产root账户可用性'
-    assets = Asset.objects.all()
+    assets = Asset.objects.filter(~Q(group__name__contains='it'))
     asset_result = {}
     asset_result['success'] = []
     asset_result['failed'] = []
