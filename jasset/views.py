@@ -850,3 +850,13 @@ def xenserver_api(request):
         xen_info_list.append(xen_info_dict)
 
     return HttpResponse(json.dumps(xen_info_list), content_type = "application/json")
+
+def group_info(request):
+    groups = AssetGroup.objects.all()
+    group_hosts = {}
+    for group in groups:
+        hosts = []
+        for asset in group.asset_set.all():
+            hosts.append(asset.ip)
+        group_hosts[group.name] = {'hosts':hosts}
+    return HttpResponse(json.dumps(group_hosts), content_type = "application/json")
