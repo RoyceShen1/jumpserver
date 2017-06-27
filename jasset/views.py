@@ -852,8 +852,8 @@ def xenserver_api(request):
     return HttpResponse(json.dumps(xen_info_list), content_type = "application/json")
 
 def group_info(request):
-    q = request.GET.get(q,'')
-    groups = AssetGroup.objects.filter(name__contains=q)
+    key = request.GET.get(q,'')
+    groups = AssetGroup.objects.filter(name__contains=key)
     group_hosts = {}
     for group in groups:
         hosts = []
