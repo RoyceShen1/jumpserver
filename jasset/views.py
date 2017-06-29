@@ -857,7 +857,7 @@ def group_info(request):
     group_hosts = {}
     for group in groups:
         hosts = []
-        for asset in group.asset_set.all():
+        for asset in group.asset_set.filter(status=1):
             hosts.append(asset.ip)
         group_hosts[group.name] = {'hosts':hosts}
     return HttpResponse(json.dumps(group_hosts), content_type = "application/json")
