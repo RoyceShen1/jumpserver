@@ -5,6 +5,7 @@ import celeryconfig
 from celery import Celery
 
 import os,sys
+import shlex
 
 
 celery = Celery('tasks')
@@ -179,3 +180,23 @@ def ssh_connect_check(hostname, username, password, port):
         return False
     
     return True
+
+def bash(cmd):
+    return shlex.os.system(cmd)
+
+@celery.task(name='task_asset_ping')
+def ping(ip):
+    asset = Asset.objects.get(ip=ip)
+    result = bash('ping -c 5 -i 1 %s'%ip)
+    if result:
+        asset.status = 2
+        asset.save()
+    else:
+        asset.status = 1
+        asset.save()
+
+@celery.task(name='task_start_ping')
+def add():
+    ips = Asset.objects.all().values_list('ip',flat=True)
+    for ip in ips:
+        ping.delay(ip)

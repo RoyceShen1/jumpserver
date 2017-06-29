@@ -10,3 +10,10 @@ CELERY_RESULT_BACKEND = 'redis://localhost:6379/1'
 CELERY_TIMEZONE = 'Asia/Shanghai'
 CELERY_ENABLE_UTC = True
 BROKER_POOL_LIMIT = 0
+
+CELERYBEAT_SCHEDULE = {
+    'add-each-minute':{
+        'task': 'task_start_ping',
+        'schedule': timedelta(seconds=3600),
+    }
+}
