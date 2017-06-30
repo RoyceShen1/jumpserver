@@ -21,7 +21,7 @@ CELERYBEAT_SCHEDULE = {
     'add-each-minute':{
         'task': 'task_start_ping',
         'schedule': timedelta(seconds=3600),
-    }
+    },
     'check-each-day':{
     	'task': 'task_root_check',
     	'schedule': timedelta(seconds=86400),
