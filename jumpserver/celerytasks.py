@@ -197,6 +197,7 @@ def ping(ip):
 
 @celery.task(name='task_start_ping')
 def add():
+    connection.close()
     ips = Asset.objects.all().values_list('ip',flat=True)
     for ip in ips:
         ping.delay(ip)
