@@ -25,6 +25,6 @@ CELERYBEAT_SCHEDULE = {
     'check-each-day':{
     	'task': 'task_root_check',
     	'schedule': timedelta(seconds=86400),
-    	'args': (admin),
+    	'args': (admin,),
     }
 }
