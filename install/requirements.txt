@@ -17,3 +17,8 @@ argparse==1.4.0
 django-crontab==0.6.0
 django-smtp-ssl==1.0
 pyte==0.5.2
+South==1.0.2
+supervisor==3.3.1
+flower==0.9.1
+celery==3.0.24
+redis==2.10.5

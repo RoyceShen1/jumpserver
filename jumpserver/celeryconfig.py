@@ -6,7 +6,7 @@ import os,sys
 sys.path.append('../')
 os.environ["DJANGO_SETTINGS_MODULE"] = 'jumpserver.settings'
 from juser.models import User
-admin = User.objects.get(username='admin')
+# admin = User.objects.get(username='admin')
 
 BROKER_URL = 'redis://localhost:6379/0'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379/1'
@@ -25,6 +25,6 @@ CELERYBEAT_SCHEDULE = {
     'check-each-day':{
     	'task': 'task_root_check',
     	'schedule': timedelta(seconds=86400),
-    	'args': (admin,),
+    	'args': ('admin',),
     }
 }

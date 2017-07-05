@@ -140,6 +140,8 @@ def task_ansible_role_push(user,push_task,role):
 
     SystemLog.objects.create(user = user, log_type = 'ansible用户推送', info = msg)
 
+from juser.models import User
+
 @celery.task(name='task_root_check')
 def task_root_check(user):
     connection.close()
@@ -148,7 +150,10 @@ def task_root_check(user):
         msg = u"root连通性检查全部通过"
     else:
         msg = u"以下资产root账户存在问题:<br>%s"%(','.join(asset_result['failed']))
-    SystemLog.objects.create(user = user, log_type = 'root账户连通性检查', info = msg)
+    if isinstance(user,str):
+        SystemLog.objects.create(user = User.objects.get(username=user), log_type = 'root账户连通性检查', info = msg)
+    else:
+        SystemLog.objects.create(user = user, log_type = 'root账户连通性检查', info = msg)
 
 def root_all_check():
     print '开始检查资产root账户可用性'
