@@ -106,6 +106,7 @@ def perm_rule_add(request):
         roles_select = request.POST.getlist('role', [])  # 需要授权角色
         rule_name = request.POST.get('name')
         rule_comment = request.POST.get('comment')
+        push = request.POST.get('push','')
 
         try:
             rule = get_object(PermRule, name=rule_name)
