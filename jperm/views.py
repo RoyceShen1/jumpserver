@@ -97,6 +97,8 @@ def perm_rule_add(request):
     asset_groups = AssetGroup.objects.all()
     roles = PermRole.objects.all()
 
+    user = request.user
+
     if request.method == 'POST':
         # 获取用户选择的 用户,用户组,资产,资产组,用户角色
         users_select = request.POST.getlist('user', [])  # 需要授权用户
