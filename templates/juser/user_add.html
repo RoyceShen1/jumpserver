@@ -49,11 +49,7 @@
                                 <div class="col-sm-8">
                                     <select id="groups" name="groups" class="form-control m-b" multiple size="12">
                                         {% for group in group_all %}
-                                            {% if forloop.first %}
-                                                <option value="{{ group.id }}" selected>{{ group.name }}</option>
-                                            {% else %}
-                                                <option value="{{ group.id }}">{{ group.name }}</option>
-                                            {% endif %}
+                                            <option value="{{ group.id }}">{{ group.name }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
