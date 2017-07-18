@@ -108,7 +108,7 @@
                                              <table class="table">
                                                  {% for rule in  user_perm_info.rule%}
                                                     <tr>
-                                                        <td><a href="{% url 'role_list' %}?id={{ rule.id }}">{{ rule.name }}</a></td>
+                                                        <td><a href="{% url 'rule_detail' %}?id={{ rule.id }}">{{ rule.name }}</a></td>
                                                     </tr>
                                                  {% endfor %}
                                              </table>
