@@ -113,6 +113,10 @@ def group_list(request):
         asset_group_list = asset_group_list.filter(Q(name__contains=keyword) | Q(comment__contains=keyword))
 
     asset_group_list, p, asset_groups, page_range, current_page, show_first, show_end = pages(asset_group_list, request)
+    
+    contacts = asset_groups
+    contact_list = asset_group_list
+
     return my_render('jasset/group_list.html', locals(), request)
 
 
