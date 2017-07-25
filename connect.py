@@ -523,8 +523,8 @@ class Nav(object):
 
     def print_search_result(self):
         hostname_max_length = self.get_max_asset_property_length(self.search_result)
-        line = '[%-3s] %-16s %-5s  %-' + str(hostname_max_length) + 's %-10s %s'
-        color_print(line % ('ID', 'IP', 'Port', 'Hostname', 'SysUser', 'Comment'), 'title')
+        line = '[%-3s] %-16s %-5s  %-' + str(hostname_max_length) + 's %-11s [%-3s] %s'
+        color_print(line % ('ID', 'IP', 'Port', 'Hostname', 'SysUser', 'ID', 'Comment'), 'title')
         if hasattr(self.search_result, '__iter__'):
             for index, asset in enumerate(self.search_result):
                 # 获取该资产信息
@@ -532,7 +532,7 @@ class Nav(object):
                 # 获取该资产包含的角色
                 role = [str(role.name) for role in self.user_perm.get('asset').get(asset).get('role')]
                 print line % (index, asset.ip, asset_info.get('port'),
-                              self.truncate_str(asset.hostname), str(role).replace("'", ''), asset.comment)
+                              self.truncate_str(asset.hostname), str(role).replace("'", ''), index, asset.comment)
         print
 
     def try_connect(self):
