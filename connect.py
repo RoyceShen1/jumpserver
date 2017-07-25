@@ -523,7 +523,7 @@ class Nav(object):
 
     def print_search_result(self):
         hostname_max_length = self.get_max_asset_property_length(self.search_result)
-        line = '[%-3s] %-16s %-5s  %-' + str(hostname_max_length) + 's %-11s [%-3s] %s'
+        line = '[%-3s]  %-16s %-5s  %-' + str(hostname_max_length) + 's %-11s [%-3s]  %s'
         color_print(line % ('ID', 'IP', 'Port', 'Hostname', 'SysUser', 'ID', 'Comment'), 'title')
         if hasattr(self.search_result, '__iter__'):
             for index, asset in enumerate(self.search_result):
