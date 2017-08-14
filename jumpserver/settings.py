@@ -130,6 +130,22 @@ else:
             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         }
     }
+
+AUTHENTICATION_BACKENDS = [
+    'django_auth_ldap.backend.LDAPBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+# Auth LDAP settings
+if config.get('auth', 'ldap'):
+    AUTHENTICATION_BACKENDS.insert(0, 'django_auth_ldap.backend.LDAPBackend')
+AUTH_LDAP_SERVER_URI = config.get('auth', 'ldap_server_uri')
+AUTH_LDAP_BIND_DN = config.get('auth', 'ldap_bind_dn')
+AUTH_LDAP_BIND_PASSWORD = config.get('auth', 'ldap_bind_password')
+AUTH_LDAP_USER_DN_TEMPLATE = config.get('auth', 'ldap_user_dn_template')
+AUTH_LDAP_START_TLS = config.get('auth', 'ldap_start_tls')
+AUTH_LDAP_USER_ATTR_MAP = config.get('auth', 'ldap_user_attr_map')
+
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.auth.context_processors.auth',
     'django.core.context_processors.debug',
